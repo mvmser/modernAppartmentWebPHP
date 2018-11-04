@@ -1,3 +1,7 @@
+<?php
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +15,7 @@
 
 <body>
 
-<?php  include("include/header.php") ?>
+<?php  include("includes/header.php") ?>
 
 <!-- LOGIN -->
 <section class="login">
@@ -34,7 +38,7 @@
 </section>
 <!-- END LOGIN -->
 
-<?php  include("include/footer.php") ?>
+<?php  include("includes/footer.php") ?>
     
 </body>
 </html>

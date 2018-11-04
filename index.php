@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Home page</title>
-    
+
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/bootstrap.css" />
@@ -11,7 +11,7 @@
 
 <body>
 
-<?php include("include/headerHome.php"); ?>
+<?php include("includes/headerHome.php"); ?>
 
 <!-- PRESENTATION 1 -->
 <div id="presentation_1">
@@ -125,7 +125,7 @@
 </section>
 <!-- END PRESENTATION 3 -->
     
-<?php  include("include/footer.php") ?>
+<?php  include("includes/footer.php") ?>
 
 <!-- JS -->
     <script src="js/jquery-3.3.1.js"></script>

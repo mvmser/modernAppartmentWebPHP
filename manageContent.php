@@ -11,7 +11,7 @@
 
 <body class="manageBody">
 
-<?php  include("include/header.php") ?>
+<?php  include("includes/header.php") ?>
 
 <!-- MANAGE PAGE -->
 <section class="managePage">
@@ -67,7 +67,7 @@
 <!-- END MANAGE PAGE -->
     
     
-<?php  include("include/footer.php") ?>
+<?php  include("includes/footer.php") ?>
 
 <!-- JS -->
 

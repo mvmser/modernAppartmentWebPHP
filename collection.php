@@ -11,7 +11,7 @@
 
 <body>
 
-<?php  include("include/header.php") ?>
+<?php  include("includes/header.php") ?>
     
 <!-- BANNER -->
 <section class="bannerCollection d-flex">
@@ -233,7 +233,7 @@
 </section>
 <!-- END COLLECTION  -->
 
-<?php  include("include/footer.php") ?>
+<?php  include("includes/footer.php") ?>
 
 </body>
 </html>
