@@ -1,0 +1,596 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed');
+
+@keyframes opacity{
+    0% { opacity: 0; }
+    50% { opacity: .8; }
+    100% { opacity: 1; }
+}
+@keyframes titleAnim{
+    0% { transform: translateX(-600px); }
+    50% { transform: translateX(150px); }
+    100% { transform: translateX(0px); }
+}
+@keyframes infosAnim{
+    0% { transform: translateY(-100%);}
+    100% { transform: translateY(0);}
+}
+@keyframes buzz
+{
+    15% { transform: translateX(5px);}
+    30% { transform: translateX(-5px);}
+    50% { transform: translateX(3px)}
+    70% { transform: translateX(-3px);}
+    80% { transform: translateX(2px);}
+    100%{ transform: translateX(0);}
+}
+@keyframes rotate
+{
+    25% { transform: rotate(+10deg);}
+    75%{ transform: rotate(-10deg);}
+    100%{ transform: rotate(0deg);}
+}
+
+/* General */
+body, html{
+    background: #fff;
+    padding: 0;
+    margin: 0;
+}
+.separator{
+    height: .5px;
+    background-color: gray;
+}
+.arrow{
+    width: 25px;
+    height: 25px;
+}
+.next{
+    text-align: center;
+    vertical-align:baseline;
+    animation: opacity 10s;
+}
+/* ----- END General ----- */
+
+/* ----- Header & Banner HOME ----- */
+.navHome{
+    padding: 0;  
+    margin: 0;
+    width: 100%;  
+}
+#headerHome{
+    background-color: #E6E6E6;
+    background-position: center center;
+    background-image: url(../img/background/backgroud_homeFront.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    overflow: hidden;
+    background-attachment: scroll;
+    font-family: 'Lato', sans-serif;
+}
+.title{
+    animation: titleAnim 2s; 
+}
+h1.title{
+    color: #ffffff;
+    font-size: 3rem;
+    text-shadow: black 0.01em 0.1em 0.2em;
+}
+/* ----- End Header HOME ----- */
+
+/* ----- Header & Banner ----- */
+.navBar{
+    padding: 0;  
+    margin: 0;
+    width: 100%;
+    border-bottom: 1px solid;
+    overflow: hidden;
+    background-color: #f6f6f6;
+}
+.logo{
+    min-width: 50px;
+    max-width: 6%;
+    margin: 0.5%;
+    border-color: lightgray;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 100%;
+    animation: opacity 2.5s;
+}
+.navigation{
+    margin: 2%;
+    padding: 0;
+    float: right;  
+    overflow: hidden;  
+    animation: opacity 7s;
+}
+.navigation > ul > li{
+    list-style-type: none;
+    overflow: hidden;
+    margin-right: auto;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+}
+.navigation a{
+    text-decoration: none;
+    margin: 2px;
+    color: rgb(12, 11, 11);
+    font-size: 1.1rem;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+.underLineNav:after {
+    content: "";
+    height: 3px;
+    background-color: #4d8fdb;
+    transition: width 0.4s;
+    display: block;
+    left: 0;
+    bottom: -10px;
+    width: 0;    
+}
+.underLineNav:hover {
+    text-decoration: none;
+    color: #707070;
+}
+.underLineNav:hover:after{
+    width: 100%;
+}
+/* ----- END Header & Banner ----- */
+
+/* ----- FOOTER ----- */
+.footer {
+    margin: 0;
+    padding: 0;
+}
+.topfooter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: rgb(169, 177, 184);
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+.contact {
+    justify-content: center;
+    vertical-align: middle;
+    padding: 0 10% 0 10%;
+}
+.contact h3, .social h3 {
+    color: rgb(94, 94, 94);
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+.contact a {
+    color: rgb(47, 83, 123);
+    margin-bottom: 5%;
+    font-family: 'Roboto Condensed', sans-serif; 
+    margin-left: 4px;
+    text-align: center;
+}
+.mail, .phone {
+    display: flex;
+}
+.mail img, .phone img {
+    width: 35px;
+    height: 35px;
+    margin-bottom: 10px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+.social {
+    justify-content: center;
+    vertical-align: middle;
+    padding: 0 10% 0 10%;
+}
+.social h3 {
+    color: rgb(94, 94, 94);
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+.social_icon {
+    width: 55px;
+    height: 55px;
+    margin-bottom: 50px;
+    vertical-align: middle;
+    transition: all 0.5s ease;
+} 
+.social_icon:hover {
+    animation: rotate .8s ease infinite;
+}  
+.copyright {
+  background-color: rgb(148, 155, 161);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.copyright p {
+    color: rgb(44, 44, 44);
+    text-align: center;
+    margin: 0;
+}
+/* ----- END FOOTER ----- */
+
+/* ----- HOME ----- */
+/* PRESENTATION 1*/
+#presentation_1{
+    min-height: 100vh;
+    text-align: center;
+    background-color: rgb(229,229,229);
+    overflow: hidden;
+}
+#presentation_1 img:hover {
+	transform: scale(1.1);
+}
+.img1{
+    width: 100%;
+    height: 300px;
+    max-height: 100%;
+    border-radius: 2%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: .3s ease-in-out;
+}
+.col-img{
+    max-height: 100px;
+    max-width: 100px;
+}
+/* PRESENTATION 2*/
+#presentation_2{
+    min-height: 100vh;
+    background-image: url(../img/background/background_presentation.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment:fixed;
+    background-color: rgb(245,245,245);
+}
+.presentation_box{
+    background-color: rgba(230,230,230, 0.9);
+    border-radius: 11px;
+    border: 1px black solid;
+    font-family: 'Lato', serif;
+    padding: 5px;
+}
+.presentation_box p{
+    margin: 0;
+    font-family: 'Roboto Condensed', serif;
+    font-size: 18px;
+}
+/* PRESENTATION 3*/
+#presentation_3{
+    min-height: 100vh;
+}
+.singleBox{
+    text-align: center;
+    border: 1px solid rgb(206, 206, 206);
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 40px 0 rgba(0,0,0,0.3);
+    transition: all 0.3s ease 0s;
+}
+.singleBox h4 {
+    margin-bottom:20px;
+}
+.singleBox p{
+    margin-bottom:0;
+}
+.singleBox:hover{
+    background-color:#04091e;
+}
+.singleBox:hover h4{
+    color:#c6b069;
+}
+.singleBox:hover p{
+    color:#ffffff;
+}
+@media (max-width: 1024px)
+{
+    .singleBox{padding:22px}
+}
+@media (max-width: 991px)
+{
+    .singleBox{margin-bottom:30px}
+}
+.singlePic {
+    width: 100%;
+    height: 300px;
+}
+.singlePic img {
+    border-radius: 9px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.singlePic:hover {
+    animation: buzz 1s ease;
+    animation-iteration-count: 2;
+}  
+/* ----- END PRESENTATION 3 -----*/
+
+/* ----- COLLECTION -----*/
+.bannerCollection{
+    background-color: rgb(228, 228, 228);
+    width: 100%;
+    height: 86vh;
+    padding: 0;
+    overflow: hidden;
+}
+.bannerCollection h1{
+    font-size: 3.5rem;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
+}
+.bannerCollection h3{
+    font-size: 2rem;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-style: italic;
+    color: gray;
+}
+.separator_title{
+    height: 2.5px;
+    background-color: black;
+    width: 20%;
+    margin: auto;
+}
+#collection{  
+    background-color: white;
+    overflow: hidden;
+    width: 100%;
+}
+.white{
+    background-color: rgb(244, 244, 244)
+}
+.gray{
+    background-color: rgb(230, 230, 230);
+}
+.boxCollection
+{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    border-top: .5px solid;
+}
+.boxTitle{
+    padding-bottom: 30px;
+    padding-top: 20px;
+    width: 100%;
+}
+.boxTitle h1{
+    font-family: 'Raleway', sans-serif;
+    font-style: italic;
+    font-weight: bold;
+}
+.boxPicture {
+    margin-bottom: 2%;
+    display: flex; 
+}
+.picture {
+    min-width: 300px;
+    width: 90%;
+    height: 260px;
+    padding: 0%;
+    margin: 1%;
+    position: relative;
+}
+.picture > .image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+}
+.picture img{
+    width: 100%;
+    height: 100%;
+    border-radius: 2%;
+    object-fit: cover;
+    transition: transform .4s;
+}
+.picture:hover img{
+    opacity: .6;
+    transform: scale(1.05);
+}
+.picture:active img{
+    opacity: 1;
+    transform: scale(0.9);
+}
+.picture > .infos{
+    display: none;
+    position: absolute;
+    z-index: 2;
+    top: 75%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.picture:hover > .infos{
+    display: initial;
+    animation: infosAnim 1s; 
+}
+.picture:active > .infos{
+    display: none;
+}
+.picture  p{
+    line-height: 10px;
+    color: white;
+    text-shadow: 1px 2px 5px #333;
+    font-size: 1.2rem;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+/* ----- END COLLECTION -----*/
+
+/* ----- MANAGE -----*/
+.managePage{
+    width: 100%;
+	min-height: 100vh;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,.3)), url(../img/background/house-nature-sunset.jpg);
+}
+.addOrRm{
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    margin: auto;
+}
+.addOrRm h2{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    margin-bottom: 3%;
+}
+@keyframes Gradient{ 
+    0%{background-position:84% 0%}
+    50%{background-position:17% 100%}
+    100%{background-position:84% 0%}
+}
+.addImg{
+    margin: 5% 2% 5% 2%;
+    text-align: center;
+    width: 50%;
+    border-radius: 9px;
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    border: 2px solid rgba(125,206,160, 0.95);
+    background: rgba(244, 255, 242, 0.5); 
+}
+.rmImg{
+    margin: 5% 2% 5% 2%;
+    text-align: center;
+    width: 50%;
+    border-radius: 9px;
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    border: 2px solid rgba(216,121,95, 0.95);
+    background: rgba(255, 250, 250, 0.5);
+}
+.a-left {
+    float: left;
+}
+.panel {
+    margin-top: 3%;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 9px;
+}
+.panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 10px;
+    font-size: 1rem;
+    color: inherit;
+}
+.panel-default {
+    border-color: lightgray;
+}
+.panel-default > .panel-heading {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    border-radius: 9px;
+}
+.panel-body {
+    padding: 10px;
+}
+/* ----- END MANAGE ----- */
+
+/* ----- LOGIN -----*/
+.login{
+    font-family: "Poppins", sans-serif;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,.3)), url(../img/background/house-nature-sunset.jpg);
+}
+.login > .wrapper{
+    margin: auto;
+    width: 30%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+.login a{
+    color: #92badd;
+    display:inline-block;
+    text-decoration: none;
+    font-weight: 400;
+}
+.login h2{
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    display:inline-block;
+    margin: 40px 8px 10px 8px; 
+    color: #cccccc;
+}
+.login input, .login button{
+    margin-top: 15px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.signIcon{
+    width: 30%;
+    position: absolute;
+    margin-left: 35%;
+    margin-right: 10%;
+    top: -50px;
+}
+.signIcon img{
+    width: 100%;
+}
+.signContent {
+    border-radius: 10px;
+    background: #fff;
+    width: 80%;
+    margin: auto;
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    text-align: center;
+    position: relative;
+}
+.signFooter {
+    background-color: #f6f6f6;
+    border-top: 1px solid #dce8f1;
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 0 0 10px 10px;
+}
+.signFooter h2{
+    margin: auto;
+}
+h2.inactive {
+    color: #cccccc;
+}
+h2.active {
+    color: #0d0d0d;
+    border-bottom: 2px solid #5fbae9;
+    margin-top: 20%;
+}
+.underlineHover:after {
+    height: 2px;
+    background-color: #56baed;
+    content: "";
+    transition: width 0.2s;
+    display: block;
+    left: 0;
+    bottom: -10px;
+    width: 0;    
+}
+.underlineHover:hover {
+    color: #0d0d0d;
+}
+.underlineHover:hover:after{
+    width: 100%;
+}
+/* ----- END LOGIN -----*/
