@@ -1,8 +1,8 @@
 <!-- Header -->
-<header class="navBar">
-    <div>
+<header>
+    <!-- Navigation -->        
+    <div class="navBar">
         <a href="home.html" ><img class="logo" src="img/icons/logo.png" alt="Logo"></a>
-        <!-- Navigation -->        
         <nav class="navigation">
             <ul class="nav">
                 <li><a class="underLineNav nav-link" href="index.php">HOME</a></li>
