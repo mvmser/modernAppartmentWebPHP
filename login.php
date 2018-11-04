@@ -11,22 +11,7 @@
 
 <body>
 
-<!-- Header -->
-<header class="navBar">
-    <div>
-        <a href="home.html" ><img class="logo" src="img/icons/logo.png" alt="Logo"></a>
-        <!-- Navigation -->        
-        <nav class="navigation">
-            <ul class="nav">
-                <li><a class="underLineNav nav-link" href="home.html">HOME</a></li>
-                <li><a class="underLineNav nav-link" href="collection.html">COLLECTION</a></li>
-                <li><a class="underLineNav nav-link" href="manageContent.html">MANAGE</a></li>
-                <li><a href="login.html" class="btn btn-outline-dark btn-lg">LOGIN</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-<!-- END Header -->
+<?php  include("include/header.php") ?>
 
 <!-- LOGIN -->
 <section class="login">
