@@ -2,7 +2,7 @@
 <header id="headerHome">
     <!-- NAVIGATION -->
     <div class="navHome">
-        <a href="home.html" ><img class="logo" src="img/icons/logo.png" alt="Logo"></a>
+        <a href="index.php" ><img class="logo" src="img/icons/logo.png" alt="Logo"></a>
 
         <nav class="navigation ">
             <ul class="nav mx-auto">

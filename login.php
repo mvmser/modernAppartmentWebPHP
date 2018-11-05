@@ -1,6 +1,11 @@
 <?php
+    include("includes/dbConfig.php");
+    session_start();
 
-
+    if ($_POST)
+    {
+        
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,13 +31,15 @@
             </div>
             <h2 class="active"> Sign In </h2>
 
-            <input type="text" class="form-control" name="username" placeholder="Username">
-            <input type="password" class="form-control" name="password" placeholder="Password">
-            <button class="btn btn-primary btn-block login-button" type="submit">Login</button>
+            <form action="" method="post">
+                <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+                <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+                <button class="btn btn-primary btn-block login-button" type="submit">Login</button>
 
-            <div class="signFooter">
-                <h2 class="inactive underlineHover">Sign Up </h2>
-            </div>
+                <div class="signFooter">
+                    <button class="inactive underlineHover">Sign Up</button>
+                </div>
+            </form>
         </div>
     </div>
 </section>
