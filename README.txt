@@ -1,6 +1,8 @@
 --------|URL|--------
 
 http://web.fcet.staffs.ac.uk/s023212i/TaskTwo/index.php
+http://web.fces.staffs.ac.uk/phpmyadmin
+https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
 
 Thanks,
 SERHIR Mohamed - s023212i

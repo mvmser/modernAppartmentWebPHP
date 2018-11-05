@@ -569,8 +569,8 @@ h1.title{
 .signFooter h2{
     margin: auto;
 }
-.signFooter button{
-    margin: auto;
+.signFooter input{
+    border:0;
 }
 h2.inactive {
     color: #cccccc;
