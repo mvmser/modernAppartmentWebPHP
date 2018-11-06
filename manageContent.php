@@ -9,12 +9,24 @@
     }
 
     if (!empty($_POST['titlePic']) && !empty($_POST['descriptionPic']) && !empty($_POST['imageURL'])){
-        echo "add";
-	}elseif(!empty($_POST['idPic'])){
+        if($_POST['titlePic'] != "select")
+        {
+            $pictureTitle = mysqli_real_escape_string($db, $_POST['titlePic']);
+            $pictureDescription = mysqli_real_escape_string($db, $_POST['descriptionPic']);
+            $pictureURL = mysqli_real_escape_string($db, $_POST['imageURL']);
+        }else{
+            $errorAdd = "Please select a title.";
+        }
+    }
+    elseif(!empty($_POST['idPic'])){
         echo "remove";
-    }else{
-        if (empty($_POST['titlePic'])){
-            $errorAdd = "test";
+    }
+    else{
+        if (empty($_POST['titlePic']) || empty($_POST['descriptionPic']) || empty($_POST['imageURL'])){
+            $errorAdd = "Please complete all fields.";
+        }
+        if (empty($_POST['idPic'])){
+            $errorRm = "Please enter an ID.";
         }
     }
 ?>
@@ -40,20 +52,24 @@
     <!-- ADD -->
     <div class="addOrRm">
         <div class="addImg">
-            <h2>ADD</h2>
-            
-            <form action="" method="POST">
-                <div class="container mx-auto">
+            <h2>ADD</h2>            
+            <div class="container mx-auto">
                 <?php
-                    if (isset($_POST)){
-                        if(!empty($errorAdd)){
-                            echo "<div style=' padding-bottom:0;' class='alert alert-danger' role='alert'>
+                    if (isset($_POST['titlePic'])){
+                        if(empty($errorAdd)){
+                            echo "<div style='padding-bottom:0;' class='alert alert-success' role='alert'>
+                                    <p>Picture uploaded!</p>
+                                </div>";
+                        }
+                        else{
+                            echo "<div style='padding-bottom:0;' class='alert alert-danger' role='alert'>
                                     <p>" . $errorAdd . " </p> 
                                 </div>";
                         }
                     }
                 ?>
-                    <select class="form-control mb-3"  name="titlePic">
+                <form action="" method="POST">
+                    <select class="form-control mb-3" name="titlePic">
                         <option value="select">Select title..</option>
                         <option value="OD">Outdoor</option>
                         <option value="IN">Indoor</option>
@@ -79,9 +95,9 @@
                         </div>
                     </div>
                     <button class="btn btn-outline-success mb-2" type="submit">Add</button>
-
-                </div>
-            </form>
+                </form>
+            </div>
+            
         </div>
         <!-- END ADD -->
 
@@ -89,19 +105,24 @@
         <div class="rmImg">
             <h2>REMOVE</h2>
             <div class="container">
-            <form action="" method="POST">
                 <?php
-                    if (isset($_POST)){
-                        if(!empty($errorRm)){
-                        echo "<div style=' padding-bottom:0;' class='alert alert-danger' role='alert'>
-                                <p>" . $errorRm . " </p> 
-                            </div>";
+                    if (isset($_POST['idPic'])){
+                        if(empty($errorRm)){
+                            echo "<div style='padding-bottom:0;' class='alert alert-success' role='alert'>
+                                    <p>Picture removed!</p>
+                                </div>";
+                        }
+                        else{
+                            echo "<div style='padding-bottom:0;' class='alert alert-danger' role='alert'>
+                                    <p>" . $errorRm . " </p> 
+                                </div>";
                         }
                     }
                 ?>
-                <input type="text" class="form-control mb-3" placeholder="ID picture" name="idPic">
-                <button type="submit" class="btn btn-outline-danger mb-2">Remove</button>
-            </form>
+                <form action="" method="POST">
+                    <input type="text" class="form-control mb-3" placeholder="ID picture" name="idPic">
+                    <button type="submit" class="btn btn-outline-danger mb-2">Remove</button>
+                </form>
             </div>
         </div>
         <!-- EN REMOVE-->
