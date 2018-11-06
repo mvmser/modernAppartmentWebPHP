@@ -122,8 +122,8 @@ h1.title{
 .navigation a{
     text-decoration: none;
     margin: 2px;
-    color: rgb(12, 11, 11);
     font-size: 1.1rem;
+    color: rgb(12, 11, 11);
     font-family: 'Roboto Condensed', sans-serif;
 }
 .underLineNav:after {

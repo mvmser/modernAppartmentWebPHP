@@ -13,7 +13,7 @@
                     echo "<li><a href='login.php' class='btn btn-outline-dark btn-lg'>LOGIN</a></li>";
                 }else{
                     echo "<li><a class='underLineNav nav-link' href='manageContent.php'>MANAGE</a></li>";
-                    echo "<li><a href='includes/logout.php' class='btn btn-outline-dark btn-lg'>LOG OUT</a></li>";
+                    echo "<li><a href='includes/logout.php' class='btn btn-outline-danger btn-lg'>LOG OUT</a></li>";
                 }
             ?>
             
