@@ -8,7 +8,7 @@
         $username = mysqli_real_escape_string($db, stripslashes($_REQUEST['username'])); 
         
         if($_REQUEST['password'] == $_REQUEST['confirm_password']){
-            $password = password_hash(mysqli_real_escape_string($db,$_REQUEST['password']), PASSWORD_DEFAULT);
+            $password = mysqli_real_escape_string($db,$_REQUEST['password']);
             $query = "SELECT * FROM user WHERE LoginName = '$username' LIMIT 1";
             $result = mysqli_query($db, $query);
             $user = mysqli_fetch_assoc($result);
@@ -40,7 +40,7 @@
 
 <body>
 
-<?php  include("includes/header.php") ?>
+<?php  include("includes/navBar.php") ?>
 
 <!-- LOGIN -->
 <section class="login">
@@ -68,7 +68,7 @@
                 }
             ?>
 
-            <form action="" method="post">
+            <form method="post">
                 <input type="text" class="form-control" name="username" placeholder="Username" required="required">
                 <input type="password" class="form-control" name="password" placeholder="Password" required="required">
                 <input type="password" class="form-control" name="confirm_password" placeholder="Re-enter password" required="required">

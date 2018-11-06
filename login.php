@@ -1,102 +1,34 @@
 <?php
-    include("includes/dbConfig.php");
-    session_start();
+	require_once "includes/dbConfig.php";
+	$error = "";
 
-	$userID = $password = "";
-	$userID_err = $password_err = "";
+	if (isset($_POST['username'])  && isset($_REQUEST['password'])){
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST")
-    {
-		// Check if username is empty
-		if(empty(trim($_POST["username"])))
-		{
-			$username_err = "Please enter username.";
-		} 
-		else
-		{
-			$userID = mysqli_real_escape_string($bd, $_POST['username']);
-		}
-		
-		// Check if password is empty
-		if(empty(trim($_POST["password"])))
-		{
-			$password_err = "Please enter your password.";
-		} 
-		else
-		{
-			$password = mysqli_real_escape_string($bd, $_POST['password']);
-		}
-		
-        //$pass = password_hash(mysqli_real_escape_string($bd, $_POST['password']) );
-		
-		// Validate credentials
-		if(empty($username_err) && empty($password_err))
-		{
-			// Prepare a select statement
-			$sql = "SELECT * FROM user WHERE LoginName = '$userID' and LoginPassword = '$password'";
-        
-			if($stmt = mysqli_prepare($db, $sql))
-			{
-				// Bind variables to the prepared statement as parameters
-				mysqli_stmt_bind_param($stmt, "s", $param_username);
-				
-				// Set parameters
-				$param_username = $username;
-				
-				// Attempt to execute the prepared statement
-				if(mysqli_stmt_execute($stmt))
-				{
-					// Store result
-					mysqli_stmt_store_result($stmt);
-					
-					// Check if username exists, if yes then verify password
-					if(mysqli_stmt_num_rows($stmt) == 1)
-					{                    
-						// Bind result variables
-						mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
-						if(mysqli_stmt_fetch($stmt))
-						{
-							if(password_verify($password, $hashed_password))
-							{
-								// Password is correct, so start a new session
-								session_start();
-								
-								// Store data in session variables
-								$_SESSION["loggedin"] = true;
-								$_SESSION["id"] = $id;
-								$_SESSION["username"] = $username;                            
-								
-								// Redirect user to welcome page
-								header("location: welcome.php");
-							}  
-							else
-							{
-                            // Display an error message if password is not valid
-                            $password_err = "The password you entered was not valid.";
-							}
-						}
-					} 
-					else
-					{
-                    // Display an error message if username doesn't exist
-                    $username_err = "No account found with that username.";
-					}
-				} 
-				else
-				{
-					echo "Oops! Something went wrong. Please try again later.";
-				}
+		$username = mysqli_real_escape_string($db, stripslashes($_REQUEST['username'])); 
+		$query = "SELECT * FROM user WHERE LoginName = '$username' LIMIT 1";
+		$result = mysqli_query($db, $query);
+		$user = mysqli_fetch_assoc($result);
+
+		if($user){
+			$password = mysqli_real_escape_string($db,$_REQUEST['password']);
+
+			$query = "SELECT * FROM user where LoginName = '$username'";
+			$result = $db->query($query);
+			$data = $result->fetch_assoc();
+			$isPasswordCorrect = password_verify($password, $data['LoginPassword']);
+			
+			if($isPasswordCorrect){
+				$_SESSION['username'] = $data['LoginName'];
+				session_start();
+			}else{
+				$error = "Incorrect username/password.";
 			}
-        
-			// Close statement
-			mysqli_stmt_close($stmt);
+			
+		}else{
+			$error = "Username does not exist.";
 		}
-		// Close connection
-		mysqli_close($link);
+        
 	}
-		
-		//$result = mysqli_connect($bd, $sql);
-	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,7 +43,7 @@
 
 <body>
 
-<?php  include("includes/header.php") ?>
+<?php  include("includes/navBar.php") ?>
 
 <!-- LOGIN -->
 <section class="login">
@@ -121,6 +53,23 @@
                 <img src="img/icons/login.png" alt="login icon">
             </div>
             <h2 class="active"> Sign In </h2>
+			<?php
+				if (isset($_REQUEST['username']))
+                {
+                    if(empty($error))
+                    {
+                        echo "<div style='margin: 0 10% 0 10%; padding-bottom:0;' class='alert alert-success' role='alert'>
+                                <p>You are logged!</p>
+                            </div>";
+                    }
+                    else
+                    {
+                        echo "<div style='margin: 0 10% 0 10%; padding-bottom:0;' class='alert alert-danger' role='alert'>
+                                <p>" . $error . " </p> 
+                            </div>";
+                    }
+				}
+			?>
 
             <form action="" method="post">
                 <input type="text" class="form-control" name="username" placeholder="Username" required="required">

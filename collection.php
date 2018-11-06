@@ -11,7 +11,7 @@
 
 <body>
 
-<?php  include("includes/header.php") ?>
+<?php  include("includes/navBar.php") ?>
     
 <!-- BANNER -->
 <section class="bannerCollection d-flex">

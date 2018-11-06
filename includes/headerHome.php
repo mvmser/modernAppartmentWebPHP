@@ -1,18 +1,7 @@
 <!-- Header -->
 <header id="headerHome">
-    <!-- NAVIGATION -->
-    <div class="navHome">
-        <a href="index.php" ><img class="logo" src="img/icons/logo.png" alt="Logo"></a>
 
-        <nav class="navigation ">
-            <ul class="nav mx-auto">
-                <li><a class="underLineNav nav-link" href="index.php">HOME</a></li>
-                <li><a class="underLineNav nav-link" href="collection.php">COLLECTION</a></li>
-                <li><a class="underLineNav nav-link" href="manageContent.php">MANAGE</a></li>
-                <li><a href="login.php" class="btn btn-outline-dark btn-lg" role="button">LOGIN</a></li>
-            </ul>
-        </nav> 
-    </div> 
+    <?php  include("navBar.php") ?>
 
     <!-- BANNER -->
     <section>
