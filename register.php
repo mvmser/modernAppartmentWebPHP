@@ -9,12 +9,12 @@
 
     $error = "";
 
-    if (isset($_REQUEST['username']) && isset($_REQUEST['password']) && isset($_REQUEST['confirm_password'])){
+    if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['confirm_password'])){
 
-        $username = mysqli_real_escape_string($db, stripslashes($_REQUEST['username'])); 
+        $username = mysqli_real_escape_string($db, stripslashes($_POST['username'])); 
         
-        if($_REQUEST['password'] == $_REQUEST['confirm_password']){
-            $password = mysqli_real_escape_string($db,password_hash($_REQUEST['password'], PASSWORD_DEFAULT));
+        if($_POST['password'] == $_POST['confirm_password']){
+            $password = mysqli_real_escape_string($db,password_hash($_POST['password'], PASSWORD_DEFAULT));
 
             $query = "SELECT * FROM user WHERE LoginName = ? LIMIT 1";
             $stmt = $db->prepare($query);
@@ -44,6 +44,8 @@
         else{
             $error = 'Passwords does not match!';
         }
+    }else{
+        $error = "Please enter all fields.";
     }
     $db->close();
 
@@ -91,9 +93,9 @@
             ?>
 
             <form method="post">
-                <input type="text" class="form-control" name="username" placeholder="Username" required="required">
-                <input type="password" class="form-control" name="password" placeholder="Password" required="required">
-                <input type="password" class="form-control" name="confirm_password" placeholder="Re-enter password" required="required">
+                <input type="text" class="form-control" name="username" placeholder="Username" >
+                <input type="password" class="form-control" name="password" placeholder="Password" >
+                <input type="password" class="form-control" name="confirm_password" placeholder="Re-enter password" >
                 <button class="btn btn-primary btn-block login-button" type="submit" value="submit">Register</button>
 
                 <div class="signFooter">

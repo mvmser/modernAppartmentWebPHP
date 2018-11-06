@@ -8,8 +8,7 @@
         exit;
     }
 
-
-	if (isset($_POST['username'])  && isset($_REQUEST['password'])){
+	if (!empty($_POST['username'])  && !empty($_POST['password'])){
 
 		$username = mysqli_real_escape_string($db, stripslashes($_REQUEST['username'])); 
 		$query = "SELECT * FROM user WHERE LoginName = '$username' LIMIT 1";
@@ -34,8 +33,14 @@
 		}else{
 			$error = "Username does not exist.";
 		}
-        
-	}
+	}else{
+        if(empty($_POST['username']) && empty($_POST['password']))
+            $error = "Please enter your username and your password.";
+        elseif(empty($_POST['username']))
+            $error = "Please enter your username.";
+        elseif(empty($_POST['password']))
+            $error = "Please enter your password.";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +66,7 @@
             </div>
             <h2 class="active"> Sign In </h2>
 			<?php
-				if (isset($_REQUEST['username']))
+				if (isset($_POST['username']))
                 {
                     if(empty($error))
                     {
@@ -79,14 +84,13 @@
 			?>
 
             <form action="" method="post">
-                <input type="text" class="form-control" name="username" placeholder="Username" required="required">
-                <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+                <input type="text" class="form-control" name="username" placeholder="Username" >
+                <input type="password" class="form-control" name="password" placeholder="Password" >
                 <button class="btn btn-primary btn-block login-button" type="submit">Login</button>
-
-                <div class="signFooter">
-                    <a href="register.php" ><h2 class="inactive underlineHover">Sign Up</h2></a>
-                </div>
             </form>
+            <div class="signFooter">
+                <a href="register.php" ><h2 class="inactive underlineHover">Sign Up</h2></a>
+            </div> 
         </div>
     </div>
 </section>

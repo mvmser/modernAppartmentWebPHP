@@ -13,11 +13,10 @@
                 <?php
                     if(isset($_SESSION['username'])){
                         echo "<div class='container pt-5'>
-                                <div class='alert  mt-5 col-4 mx-auto' role='alert'>
+                                <div class='alert alert-success mt-5 col-4 mx-auto' role='alert'>
                                     <h4 class='alert-heading'>Welcome " .$_SESSION['username']. "!</h4>
-                                    <p>...</p>
+                                    <p>You can now add or remove some pictures </p>
                                     <hr>
-                                    <p class='mb-0'>..</p>
                                 </div>
                             </div>";
                     }

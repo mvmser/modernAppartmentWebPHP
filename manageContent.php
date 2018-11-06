@@ -1,3 +1,23 @@
+<?php  
+    require_once "includes/dbConfig.php";
+    require_once "includes/session.php";
+    $errorAdd = $errorRm = "";
+    
+    if(!isset($_SESSION["username"]) ){
+        header("location : index.php");
+        exit;
+    }
+
+    if (!empty($_POST['titlePic']) && !empty($_POST['descriptionPic']) && !empty($_POST['imageURL'])){
+        echo "add";
+	}elseif(!empty($_POST['idPic'])){
+        echo "remove";
+    }else{
+        if (empty($_POST['titlePic'])){
+            $errorAdd = "test";
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +32,7 @@
 <body class="manageBody">
 
 <?php  
-    include("includes/navBar.php") 
+    include("includes/navBar.php");
 ?>
 
 <!-- MANAGE PAGE -->
@@ -22,36 +42,46 @@
         <div class="addImg">
             <h2>ADD</h2>
             
-            <div class="container mx-auto">
-                <select class="form-control mb-3"  id="TitlePic">
-                    <option>Select title..</option>
-                    <option>Outdoor</option>
-                    <option>Indoor</option>
-                    <option>Living Room</option>
-                    <option>Bedroom</option>
-                    <option>Kitchen</option>
-                    <option>Bathroom</option>
-                </select>
-                <input type="text" class="form-control" placeholder="Description" id="DescriptionPic">
+            <form action="" method="POST">
+                <div class="container mx-auto">
+                <?php
+                    if (isset($_POST)){
+                        if(!empty($errorAdd)){
+                            echo "<div style=' padding-bottom:0;' class='alert alert-danger' role='alert'>
+                                    <p>" . $errorAdd . " </p> 
+                                </div>";
+                        }
+                    }
+                ?>
+                    <select class="form-control mb-3"  name="titlePic">
+                        <option value="select">Select title..</option>
+                        <option value="OD">Outdoor</option>
+                        <option value="IN">Indoor</option>
+                        <option value="LR">Living Room</option>
+                        <option value="BD">Bedroom</option>
+                        <option value="KT">Kitchen</option>
+                        <option value="BA">Bathroom</option>
+                    </select>
+                    <input type="text" class="form-control" placeholder="Description" name="descriptionPic">
                 
-                <div class="upload panel panel-default">
-                    <div class="panel-heading clearfix">
-                        <h3 class="panel-title a-left my-2">Upload Image</h3>
-                    </div>
+                    <div class="upload panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h3 class="panel-title a-left my-2">Upload Image</h3>
+                        </div>
                     
-                    <div class="url-tab panel-body">
-                        <div class="input-group">
-                            <input type="text" class="form-control hasclear" placeholder="Image URL" id="imageURL">
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-outline-success">Preview</button>
+                        <div class="url-tab panel-body">
+                            <div class="input-group">
+                                <input type="text" class="form-control hasclear" placeholder="Image URL" name="imageURL">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-outline-success">Preview</button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <button class="btn btn-outline-success mb-2" type="submit">Add</button>
+
                 </div>
-
-                <button type="button" class="btn btn-outline-success mb-2">Add</button>
-            </div>
-
+            </form>
         </div>
         <!-- END ADD -->
 
@@ -59,8 +89,19 @@
         <div class="rmImg">
             <h2>REMOVE</h2>
             <div class="container">
-                <input type="text" class="form-control mb-3" placeholder="ID picture" id="idPic">
-                <button type="button" class="btn btn-outline-danger mb-2">Remove</button>
+            <form action="" method="POST">
+                <?php
+                    if (isset($_POST)){
+                        if(!empty($errorRm)){
+                        echo "<div style=' padding-bottom:0;' class='alert alert-danger' role='alert'>
+                                <p>" . $errorRm . " </p> 
+                            </div>";
+                        }
+                    }
+                ?>
+                <input type="text" class="form-control mb-3" placeholder="ID picture" name="idPic">
+                <button type="submit" class="btn btn-outline-danger mb-2">Remove</button>
+            </form>
             </div>
         </div>
         <!-- EN REMOVE-->
