@@ -8,14 +8,26 @@
         $username = mysqli_real_escape_string($db, stripslashes($_REQUEST['username'])); 
         
         if($_REQUEST['password'] == $_REQUEST['confirm_password']){
-            $password = mysqli_real_escape_string($db,$_REQUEST['password']);
-            $query = "SELECT * FROM user WHERE LoginName = '$username' LIMIT 1";
-            $result = mysqli_query($db, $query);
-            $user = mysqli_fetch_assoc($result);
+            $password = mysqli_real_escape_string($db,password_hash($_REQUEST['password'], PASSWORD_DEFAULT));
 
-            if(!$user){
-                $query = "INSERT into `user` (LoginName, LoginPassword) VALUES ('$username', '$password')";
-                $result = mysqli_query($db,$query);
+            $query = "SELECT * FROM user WHERE LoginName = ? LIMIT 1";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $stmt->store_result();            
+
+            if($stmt->num_rows == 0){
+                $stmt->free_result();
+                $stmt->close();
+                //$query = "SELECT * FROM user WHERE LoginName = ?";
+                $query = "INSERT into `user` (LoginName, LoginPassword) VALUES (?, ?)";
+                if($stmt = $db->prepare($query)){
+                    $stmt->bind_param("ss", $username, $password);
+                    $stmt->execute();                   
+                    $stmt->close();
+                }else{
+                    $error = 'Error to create you account.';
+                }                       
             }
             else{
                 $error = 'User already exist!';
@@ -25,6 +37,8 @@
             $error = 'Passwords does not match!';
         }
     }
+    $db->close();
+
 ?>
  
 <!DOCTYPE html>

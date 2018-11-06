@@ -1,6 +1,11 @@
 <?php
 	require_once "includes/dbConfig.php";
-	$error = "";
+    $error = "";
+    
+    if(isset($_SESSION["username"]) ){
+        header("location: index.php");
+        exit;
+    }
 
 	if (isset($_POST['username'])  && isset($_REQUEST['password'])){
 
@@ -18,8 +23,7 @@
 			$isPasswordCorrect = password_verify($password, $data['LoginPassword']);
 			
 			if($isPasswordCorrect){
-				$_SESSION['username'] = $data['LoginName'];
-				session_start();
+                $_SESSION['username'] = $username;
 			}else{
 				$error = "Incorrect username/password.";
 			}

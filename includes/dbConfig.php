@@ -4,10 +4,10 @@
     $dbPassword="s023212i";
     $dbName = "s023212i";
 
-    $db = mysqli_connect($dbHost, $dbUser, $dbPassword, $dbName);
+    $db = new mysqli($dbHost, $dbUser, $dbPassword, $dbName);
 
-    if(!$db)
-    {
-        die('Unable to connect to database' . mysqli_connect_error());
+    if (mysqli_connect_errno()) {
+        printf("Error: %s\n", mysqli_connect_error());
+        exit();
     }
 ?>
