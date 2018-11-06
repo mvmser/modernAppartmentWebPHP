@@ -11,7 +11,9 @@
 
 <body class="manageBody">
 
-<?php  include("includes/navBar.php") ?>
+<?php  
+    include("includes/navBar.php") 
+?>
 
 <!-- MANAGE PAGE -->
 <section class="managePage">

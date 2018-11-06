@@ -12,7 +12,9 @@
 
 <body>
 
-<?php include("includes/headerHome.php"); ?>
+<?php     
+    include("includes/headerHome.php"); 
+?>
 
 <!-- PRESENTATION 1 -->
 <div id="presentation_1">

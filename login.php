@@ -1,11 +1,13 @@
 <?php
-	require_once "includes/dbConfig.php";
+    require_once "includes/dbConfig.php";
+    require_once "includes/session.php";
     $error = "";
     
     if(isset($_SESSION["username"]) ){
-        header("location: index.php");
+        header("location : index.php");
         exit;
     }
+
 
 	if (isset($_POST['username'])  && isset($_REQUEST['password'])){
 
@@ -24,6 +26,7 @@
 			
 			if($isPasswordCorrect){
                 $_SESSION['username'] = $username;
+                header("Refresh: 2;URL=index.php");
 			}else{
 				$error = "Incorrect username/password.";
 			}

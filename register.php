@@ -1,5 +1,11 @@
 <?php
     require_once "includes/dbConfig.php";
+    require_once "includes/session.php";
+
+    if(isset($_SESSION["username"]) ){
+        header("location: index.php");
+        exit;
+    }
 
     $error = "";
 
@@ -16,10 +22,12 @@
             $stmt->execute();
             $stmt->store_result();            
 
+            //if there is no LoginName
             if($stmt->num_rows == 0){
+                //we dont need anymore the result
                 $stmt->free_result();
+                //we can close 
                 $stmt->close();
-                //$query = "SELECT * FROM user WHERE LoginName = ?";
                 $query = "INSERT into `user` (LoginName, LoginPassword) VALUES (?, ?)";
                 if($stmt = $db->prepare($query)){
                     $stmt->bind_param("ss", $username, $password);

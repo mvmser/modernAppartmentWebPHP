@@ -11,7 +11,9 @@
 
 <body>
 
-<?php  include("includes/navBar.php") ?>
+<?php  
+    include("includes/navBar.php") 
+?>
     
 <!-- BANNER -->
 <section class="bannerCollection d-flex">
@@ -25,7 +27,7 @@
         </div>
         <div class="col-lg-6 mt-5 mx-auto">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="What are you looking for ?">
+              <input type="text" class="form-control" placeholder="<?php echo $_SESSION["username"];?>, what are you looking for ?">
                 <button class="btn btn-default btn-outline-primary" type="button">Search</button>
             </div>
         </div>
