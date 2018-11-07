@@ -34,12 +34,12 @@
 			$error = "Username does not exist.";
 		}
 	}else{
-        if(empty($_POST['username']) && empty($_POST['password']))
-            $error = "Please enter your username and your password.";
-        elseif(empty($_POST['username']))
-            $error = "Please enter your username.";
-        elseif(empty($_POST['password']))
-            $error = "Please enter your password.";
+        if(empty($_POST['username']))
+            $error = $error . "Please enter your username. </br>";
+        if(empty($_POST['password']))
+            $error = $error . "Please enter your password. </br>";
+        elseif(empty($_POST['username']) && empty($_POST['password']))
+            $error = $error . "Please enter your username and your password. ";
     }
 ?>
 <!DOCTYPE html>

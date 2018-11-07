@@ -8,12 +8,18 @@
         exit;
     }
 
+
     if (!empty($_POST['titlePic']) && !empty($_POST['descriptionPic']) && !empty($_POST['imageURL'])){
-        if($_POST['titlePic'] != "select")
-        {
+        if($_POST['titlePic'] != "select"){
             $pictureTitle = mysqli_real_escape_string($db, $_POST['titlePic']);
             $pictureDescription = mysqli_real_escape_string($db, $_POST['descriptionPic']);
             $pictureURL = mysqli_real_escape_string($db, $_POST['imageURL']);
+            echo $pictureURL;
+            if(true){
+                echo "is link";
+            }else{
+                $errorAdd = "Please enter a correct URL";
+            }
         }else{
             $errorAdd = "Please select a title.";
         }
