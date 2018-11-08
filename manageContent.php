@@ -7,24 +7,57 @@
         header("location : index.php");
         exit;
     }
-
-
+ 
+    //ADD
     if (!empty($_POST['titlePic']) && !empty($_POST['descriptionPic']) && !empty($_POST['imageURL'])){
         if($_POST['titlePic'] != "select"){
-            $pictureTitle = mysqli_real_escape_string($db, $_POST['titlePic']);
-            $pictureDescription = mysqli_real_escape_string($db, $_POST['descriptionPic']);
-            $pictureURL = mysqli_real_escape_string($db, $_POST['imageURL']);
-            echo $pictureURL;
-            if(true){
-                echo "is link";
+
+            //if the image is an image, we will have a $_POST image-url
+            if(!empty($_POST['image-url'])){
+                $prefix = mysqli_real_escape_string($db, $_POST['titlePic']);
+                $imageDescription = mysqli_real_escape_string($db, $_POST['descriptionPic']);
+                $imageURL = mysqli_real_escape_string($db, $_POST['imageURL']);
+                $username = $_SESSION['username'];
+
+                //who is username -> userID?
+                $query =  "(SELECT UserID FROM user WHERE LoginName = '$username')";
+                $result = $db->query($query);
+                $data = $result->fetch_assoc();
+                $userID = $data['UserID'];
+
+                $query = "INSERT into `collection` (prefix, description, URL, userID) VALUES (?, ?, ?, ?)";
+                if($stmt = $db->prepare($query)){
+                    $stmt->bind_param("sssi", $prefix, $imageDescription, $imageURL, $userID);
+                    $stmt->execute();                
+                    $stmt->close();
+                }else{
+                    $errorAdd = 'Error to upload your image.';
+                }    
             }else{
-                $errorAdd = "Please enter a correct URL";
+                $errorAdd = "Please click on preview.";
             }
         }else{
             $errorAdd = "Please select a title.";
         }
     }
+    //REMOVE
     elseif(!empty($_POST['idPic'])){
+        $idPicture = mysqli_real_escape_string($db, $_POST['idPic']);
+        $username = $_SESSION['username'];
+
+        //who is username -> userID?
+        $query =  "(SELECT UserID FROM user WHERE LoginName = '$username')";
+        $result = $db->query($query);
+        $data = $result->fetch_assoc();
+        $userID = $data['UserID'];
+
+        $query =  "(SELECT itemID FROM collection WHERE userID = '$userID')";
+        $result = $db->query($query);
+        $data = $result->fetch_assoc();
+        if($data == 1){
+            $itemID = $data['itemID'];
+            
+        }
         echo "remove";
     }
     else{
@@ -35,6 +68,7 @@
             $errorRm = "Please enter an ID.";
         }
     }
+    $db->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,6 +130,7 @@
                                 <input type="text" class="form-control hasclear" placeholder="Image URL" name="imageURL">
                                 <div class="input-group-btn">
                                     <button type="button" class="btn btn-outline-success">Preview</button>
+                                    <input type="hidden" name="image-url">
                                 </div>
                             </div>
                         </div>

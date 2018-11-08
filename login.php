@@ -11,7 +11,7 @@
 	if (!empty($_POST['username'])  && !empty($_POST['password'])){
 
 		$username = mysqli_real_escape_string($db, stripslashes($_POST['username'])); 
-		$query = "SELECT * FROM user WHERE LoginName = '$username' LIMIT 1";
+		$query = "SELECT * FROM user WHERE LoginName = '$username'";
 		$result = mysqli_query($db, $query);
 		$user = mysqli_fetch_assoc($result);
 
