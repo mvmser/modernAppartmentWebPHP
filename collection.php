@@ -17,7 +17,7 @@
     
 <!-- BANNER -->
 <section class="bannerCollection d-flex">
-    <div class="container text-center mb-5 mx-auto my-auto">
+    <div class="container text-center mb-5 mx-auto mt-5">
         <div class="col">
             <h1>COLLECTION</h1>
             <div class="separator_title"></div>
@@ -25,12 +25,38 @@
         <div class="col mt-5">
             <h3>Looking for a superior quality of life</h3>
         </div>
-        <div class="col-lg-6 mt-5 mx-auto">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="<?php echo $_SESSION["username"];?>, what are you looking for ?">
-                <button class="btn btn-default btn-outline-primary" type="button">Search</button>
-            </div>
+        <div class="col-lg-6 mx-auto">
+            <form action="" method="POST" class="input-group">
+                <input name="searchItem" type="text" class="form-control" placeholder="What are you looking for ?">
+                <button class="btn btn-default btn-outline-primary" type="submit">Search</button>
+            </form>
         </div>
+
+        <?php
+            require_once "includes/dbConfig.php";
+
+            if(!empty($_POST['searchItem'])){
+                $searchItem = mysqli_real_escape_string($db,$_POST['searchItem']);
+
+                //search for itemID 
+                $query =  "SELECT * FROM collection WHERE itemID = '$searchItem'";
+                $result = $db->query($query);
+                $data = $result->fetch_assoc();
+                $itemID = $data['itemID'];
+                $itemURL = $data['URL'];
+                $itemDescription = $data['description'];
+                echo "<div class='picture col-8 mx-auto mt-5'>
+                        <div class='image'>
+                            <img id=' $itemID ' src='  $itemURL ' alt=' $itemID '>
+                        </div>
+                        <div class='infos'>
+                            <p>$itemDescription</p>
+                            <p>$itemID</p> 
+                        </div>
+                    </div>";
+            }
+        ?>
+        
     </div>
 </section>
 <!-- END BANNER -->
@@ -45,16 +71,32 @@
         </div>
         <!-- Box Picture -->
         <div class="boxPicture row">
+            <?php
+                require_once "includes/dbConfig.php";
 
-            <div class="picture col">
-                <div class="image">
-                    <img id="OD-0001" src="img/outdoor/modern-facade.jpg" alt="OD-0001">
-                </div>
-                <div class="infos">
-                    <p>Beautiful outdoor</p>
-                    <p>OD-0001</p> 
-                </div>
-            </div>
+                if(!empty($_POST['searchItem'])){
+                    $searchItem = mysqli_real_escape_string($db,$_POST['searchItem']);
+
+                    //search for itemID 
+                    $query =  "SELECT * FROM collection WHERE prefix = 'OD'";
+                    $result = $db->query($query);
+                    $data = $result->fetch_assoc();
+
+                    //faire un while
+                    $itemID = $data['itemID'];
+                    $itemURL = $data['URL'];
+                    $itemDescription = $data['description'];
+                    echo "<div class='picture col>
+                            <div class='image'>
+                                <img id=' $itemID ' src='  $itemURL ' alt=' $itemID '>
+                            </div>
+                            <div class='infos'>
+                                <p>$itemDescription</p>
+                                <p>$itemID</p> 
+                            </div>
+                        </div>";
+                }
+            ?>
 
             <div class="picture col">
                 <div class="image">

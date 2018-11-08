@@ -45,20 +45,25 @@
         $idPicture = mysqli_real_escape_string($db, $_POST['idPic']);
         $username = $_SESSION['username'];
 
-        //who is username -> userID?
-        $query =  "(SELECT UserID FROM user WHERE LoginName = '$username')";
+        //search for userID
+        $query =  "SELECT UserID FROM user WHERE LoginName = '$username'";
         $result = $db->query($query);
         $data = $result->fetch_assoc();
-        $userID = $data['UserID'];
+        if($data)
+            $userID = $data['UserID'];
+        else
+            $errorRm = "Error, user ID not found.";
 
-        $query =  "(SELECT itemID FROM collection WHERE userID = '$userID')";
+        //search for itemID
+        $query =  "SELECT userID FROM collection WHERE itemID = '$idPicture'";
         $result = $db->query($query);
         $data = $result->fetch_assoc();
-        if($data == 1){
-            $itemID = $data['itemID'];
-            
+        $userIDCollection = $data['userID'];
+
+        if($userIDCollection == $userID){
+            $query = "DELETE FROM collection WHERE itemID = '$idPicture'";
+            $result = $db->query($query);
         }
-        echo "remove";
     }
     else{
         if (empty($_POST['titlePic']) || empty($_POST['descriptionPic']) || empty($_POST['imageURL'])){
