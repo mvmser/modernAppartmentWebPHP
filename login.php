@@ -47,6 +47,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Login</title>
+    <link rel='icon' href='favicon.ico' type='image/x-icon'/>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css" />

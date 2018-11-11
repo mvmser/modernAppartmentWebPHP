@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Collection</title>
+    <link rel='icon' href='favicon.ico' type='image/x-icon'/>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css" />
@@ -38,28 +39,34 @@
             if(!empty($_POST['searchItem'])){
                 $searchItem = mysqli_real_escape_string($db,$_POST['searchItem']);
 
-                //search for itemID 
-                $query =  "SELECT * FROM collection WHERE itemID = '$searchItem'";
-                $result = $db->query($query);
-                if($data = $result->fetch_assoc()){
-                    $itemID = $data['itemID'];
-                    $itemURL = $data['URL'];
-                    $itemDescription = $data['description'];
-    
-                    echo "<div class='picture col-8 mx-auto mt-5'>
-                            <div class='image'>
-                                <img id=' $itemID ' src='  $itemURL ' alt=' $itemID '>
-                            </div>
-                            <div class='infos'>
-                                <p>$itemDescription</p>
-                                <p>$itemID</p> 
-                            </div>
-                        </div>";
+                if($searchItem == "Outdoor"){
+
                 }else{
-                    echo "<div class='alert alert-danger mt-3 col-4 mx-auto pb-0' role='alert'>
-                                <p>Item not found.</p> 
+                    //search for itemID 
+                    $query =  "SELECT * FROM collection WHERE itemID = '$searchItem'";
+                    $result = $db->query($query);
+                    if($data = $result->fetch_assoc()){
+                        $itemID = $data['itemID'];
+                        $itemURL = $data['URL'];
+                        $itemDescription = $data['description'];
+        
+                        echo "<div class='picture col-8 mx-auto mt-5'>
+                                <div class='image'>
+                                    <img id=' $itemID ' src='  $itemURL ' alt=' $itemID '>
+                                </div>
+                                <div class='infos'>
+                                    <p>$itemDescription</p>
+                                    <p>$itemID</p> 
+                                </div>
                             </div>";
+                    }else{
+                        echo "<div class='alert alert-danger mt-3 col-4 mx-auto pb-0' role='alert'>
+                                    <p>Item not found.</p> 
+                                </div>";
+                    }
                 }
+
+                
             }
         ?>
         

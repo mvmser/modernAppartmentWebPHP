@@ -56,6 +56,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Sign Up</title>
+    <link rel='icon' href='favicon.ico' type='image/x-icon'/>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css" />
