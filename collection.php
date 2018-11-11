@@ -41,19 +41,25 @@
                 //search for itemID 
                 $query =  "SELECT * FROM collection WHERE itemID = '$searchItem'";
                 $result = $db->query($query);
-                $data = $result->fetch_assoc();
-                $itemID = $data['itemID'];
-                $itemURL = $data['URL'];
-                $itemDescription = $data['description'];
-                echo "<div class='picture col-8 mx-auto mt-5'>
-                        <div class='image'>
-                            <img id=' $itemID ' src='  $itemURL ' alt=' $itemID '>
-                        </div>
-                        <div class='infos'>
-                            <p>$itemDescription</p>
-                            <p>$itemID</p> 
-                        </div>
-                    </div>";
+                if($data = $result->fetch_assoc()){
+                    $itemID = $data['itemID'];
+                    $itemURL = $data['URL'];
+                    $itemDescription = $data['description'];
+    
+                    echo "<div class='picture col-8 mx-auto mt-5'>
+                            <div class='image'>
+                                <img id=' $itemID ' src='  $itemURL ' alt=' $itemID '>
+                            </div>
+                            <div class='infos'>
+                                <p>$itemDescription</p>
+                                <p>$itemID</p> 
+                            </div>
+                        </div>";
+                }else{
+                    echo "<div class='alert alert-danger mt-3 col-4 mx-auto pb-0' role='alert'>
+                                <p>Item not found.</p> 
+                            </div>";
+                }
             }
         ?>
         
@@ -65,59 +71,39 @@
 
 <!-- COLLECTION -->
 <section id="collection">
-    <div class="boxCollection white">
+    <div class="container-fluid boxCollection white">
         <div class="boxTitle">
             <h1>Outdoor</h1> 
         </div>
         <!-- Box Picture -->
-        <div class="boxPicture row">
+        <div class="boxPicture row mx-auto">
             <?php
                 require_once "includes/dbConfig.php";
 
-                if(!empty($_POST['searchItem'])){
-                    $searchItem = mysqli_real_escape_string($db,$_POST['searchItem']);
+                //search for prefix
+                $query =  "SELECT * FROM collection WHERE prefix = 'OD'";
+                $result = $db->query($query);
 
-                    //search for itemID 
-                    $query =  "SELECT * FROM collection WHERE prefix = 'OD'";
-                    $result = $db->query($query);
-                    $data = $result->fetch_assoc();
-
-                    //faire un while
+                while ($data = $result->fetch_assoc()) {
                     $itemID = $data['itemID'];
                     $itemURL = $data['URL'];
                     $itemDescription = $data['description'];
-                    echo "<div class='picture col>
-                            <div class='image'>
-                                <img id=' $itemID ' src='  $itemURL ' alt=' $itemID '>
+
+                    
+                    echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
+                            <div class='picture'>
+                                <div class='image'>
+                                    <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                </div>
+                                <div class='infos'>
+                                    <p>$itemDescription</p>
+                                    <p>$itemID</p> 
+                                </div>
                             </div>
-                            <div class='infos'>
-                                <p>$itemDescription</p>
-                                <p>$itemID</p> 
-                            </div>
-                        </div>";
+                        </div>"; 
+                     
                 }
-            ?>
-
-            <div class="picture col">
-                <div class="image">
-                    <img id="OD-0002" src="img/outdoor/modern-facade2.jpg" alt="OD-0002">
-                </div>
-                <div class="infos">
-                    <p>Luxury Modern</p>
-                    <p>OD-0002</p> 
-                </div>
-            </div>
-
-            <div class="picture col">
-                <div class="image">
-                    <img id="OD-0003" src="img/outdoor/modern_facade3.jpg" alt="OD-0003">
-                </div>
-                <div class="infos">
-                    <p>Lucury Outdoor</p>
-                    <p>OD-0003</p> 
-                </div>
-            </div>
-
+                ?>
         </div>  
         <!-- END Box Picture--> 
     </div>
@@ -127,36 +113,36 @@
             <h1>Living room</h1> 
         </div>
         <!-- Box Picture -->
-        <div class="boxPicture row">
-            <div class="picture col">
-                <div class="image">
-                    <img id="LR-0004" src="img/indoor/modern-luxury-living-rooms.jpg" alt="LR-0004">
-                </div>
-                <div class="infos">
-                    <p>Description1</p>
-                    <p>LR-0004</p> 
-                </div>
-            </div>
-            <div class="picture col">
-                <div class="image">
-                    <img id="LR-0005" src="img/indoor/modern-luxury-living-rooms.jpg" alt="LR-0005">
-                </div>
-                <div class="infos">
-                    <p>Description1</p>
-                    <p>LR-0005</p> 
-                </div>
-            </div>
-            <div class="picture col">
-                <div class="image">
-                    <img id="LR-0006" src="img/indoor/modern-luxury-living-rooms.jpg" alt="LR-0006">
-                </div>
-                <div class="infos">
-                    <p>Description1</p>
-                    <p>LR-0006</p> 
-                </div>
-            </div>
-        </div>   
-        <!-- END Box Picture-->
+        <div class="boxPicture row mx-auto">
+            <?php
+                require_once "includes/dbConfig.php";
+
+                //search for prefix
+                $query =  "SELECT * FROM collection WHERE prefix = 'LR'";
+                $result = $db->query($query);
+
+                while ($data = $result->fetch_assoc()) {
+                    $itemID = $data['itemID'];
+                    $itemURL = $data['URL'];
+                    $itemDescription = $data['description'];
+
+                    
+                    echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
+                            <div class='picture'>
+                                <div class='image'>
+                                    <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                </div>
+                                <div class='infos'>
+                                    <p>$itemDescription</p>
+                                    <p>$itemID</p> 
+                                </div>
+                            </div>
+                        </div>"; 
+                     
+                }
+                ?>
+        </div>  
+        <!-- END Box Picture--> 
     </div>
 
     <div class="boxCollection white">
@@ -164,36 +150,34 @@
             <h1>Bed room</h1> 
         </div>
         <!-- Box Picture -->
-        <div class="boxPicture row">
-            <div class="picture col">
-                <div class="image">
-                    <img id="BD-0007" src="img/indoor/modern-bedroom.jpg" alt="BD-0007">
-                </div>
-                <div class="infos">
-                    <p>Description1</p>
-                    <p>BD-0007</p> 
-                </div>
-            </div>
+        <div class="boxPicture row mx-auto">
+            <?php
+                require_once "includes/dbConfig.php";
 
-            <div class="picture col">
-                <div class="image">
-                    <img id="BD-0008" src="img/indoor/modern-bedroom.jpg" alt="BD-0008">
-                </div>
-                <div class="infos">
-                    <p>Description1</p>
-                    <p>BD-0008</p> 
-                </div>
-            </div>
+                //search for prefix
+                $query =  "SELECT * FROM collection WHERE prefix = 'BD'";
+                $result = $db->query($query);
 
-            <div class="picture col">
-                <div class="image">
-                    <img id="BD-0009" src="img/indoor/modern-bedroom.jpg" alt="BD-0009">
-                </div>
-                <div class="infos">
-                    <p>Description1</p>
-                    <p>BD-0009</p> 
-                </div>
-            </div> 
+                while ($data = $result->fetch_assoc()) {
+                    $itemID = $data['itemID'];
+                    $itemURL = $data['URL'];
+                    $itemDescription = $data['description'];
+
+                    
+                    echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
+                            <div class='picture'>
+                                <div class='image'>
+                                    <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                </div>
+                                <div class='infos'>
+                                    <p>$itemDescription</p>
+                                    <p>$itemID</p> 
+                                </div>
+                            </div>
+                        </div>"; 
+                     
+                }
+                ?>
         </div>  
         <!-- END Box Picture--> 
     </div>
@@ -203,74 +187,72 @@
             <h1>Kitchen</h1> 
         </div>
         <!-- Box Picture -->
-        <div class="boxPicture row">
-            <div class="picture col">
-                <div class="image">
-                    <img id="KT-0010" src="img/indoor/kitchen_Ratchford.jpg" alt="KT-0010">
-                </div>
-                <div class="infos">
-                    <p>Description1</p>
-                    <p>KT-0010</p> 
-                </div>
-            </div>
+        <div class="boxPicture row mx-auto">
+            <?php
+                require_once "includes/dbConfig.php";
 
-            <div class="picture col">
-                <div class="image">
-                    <img id="KT-0011" src="img/indoor/kitchen_Ratchford.jpg" alt="KT-0011">
-                </div>
-                <div class="infos">
-                    <p>Description1</p>
-                    <p>KT-0011</p> 
-                </div>
-            </div>
+                //search for prefix
+                $query =  "SELECT * FROM collection WHERE prefix = 'KT'";
+                $result = $db->query($query);
 
-            <div class="picture col">
-                <div class="image">
-                    <img id="KT-0012" src="img/indoor/kitchen_Ratchford.jpg" alt="KT-0012">
-                </div>
-                <div class="infos">
-                    <p>Description1</p>
-                    <p>KT-0012</p> 
-                </div>
-            </div>
-            <!-- END Box Picture-->   
-        </div>   
+                while ($data = $result->fetch_assoc()) {
+                    $itemID = $data['itemID'];
+                    $itemURL = $data['URL'];
+                    $itemDescription = $data['description'];
+
+                    
+                    echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
+                            <div class='picture'>
+                                <div class='image'>
+                                    <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                </div>
+                                <div class='infos'>
+                                    <p>$itemDescription</p>
+                                    <p>$itemID</p> 
+                                </div>
+                            </div>
+                        </div>"; 
+                     
+                }
+                ?>
+        </div>  
+        <!-- END Box Picture-->   
+    </div>   
 
         <div class="boxCollection white">
             <div class="boxTitle">
                 <h1>Bathroom</h1> 
             </div>
             <!-- Box Picture -->
-            <div class="boxPicture row">
-                <div class="picture col">
-                    <div class="image">
-                        <img id="BA-0013" src="img/indoor/Harbour-Bathroom.jpg" alt="BA-0013">
-                    </div>
-                    <div class="infos">
-                        <p>Description1</p>
-                        <p>BA-0013</p> 
-                    </div>
-                </div>
-                <div class="picture col">
-                    <div class="image">
-                        <img id="BA-0014" src="img/indoor/Harbour-Bathroom.jpg" alt="BA-0014">
-                    </div>
-                    <div class="infos">
-                        <p>Description1</p>
-                        <p>BA-0014</p> 
-                    </div>
-                </div>
-                <div class="picture col">
-                    <div class="image">
-                        <img id="BA-0015" src="img/indoor/Harbour-Bathroom.jpg" alt="BA-0015">
-                    </div>
-                    <div class="infos">
-                        <p>Description1</p>
-                        <p>BA-0015</p> 
-                    </div>
-                </div>   
-            </div>
-            <!-- END Box Picture-->
+        <div class="boxPicture row mx-auto">
+            <?php
+                require_once "includes/dbConfig.php";
+
+                //search for prefix
+                $query =  "SELECT * FROM collection WHERE prefix = 'BA'";
+                $result = $db->query($query);
+
+                while ($data = $result->fetch_assoc()) {
+                    $itemID = $data['itemID'];
+                    $itemURL = $data['URL'];
+                    $itemDescription = $data['description'];
+
+                    echo "<div class='col-md d-inline-block my-3 mx-auto mw-75'>
+                            <div class='picture'>
+                                <div class='image'>
+                                    <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                </div>
+                                <div class='infos'>
+                                    <p>$itemDescription</p>
+                                    <p>$itemID</p> 
+                                </div>
+                            </div>
+                        </div>"; 
+                     
+                }
+                ?>
+        </div>  
+        <!-- END Box Picture--> 
         </div>
     </div>
 
