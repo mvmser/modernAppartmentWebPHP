@@ -31,7 +31,7 @@
                     $stmt->execute();                
                     $stmt->close();
                 }else{
-                    $errorAdd = 'Error to upload your image.';
+                    $errorAdd = "Error to upload your image.";
                 }    
             }else{
                 $errorAdd = "Please click on preview.";
@@ -48,22 +48,26 @@
         //search for userID
         $query =  "SELECT UserID FROM user WHERE LoginName = '$username'";
         $result = $db->query($query);
-        $data = $result->fetch_assoc();
-        if($data)
+        if($data = $result->fetch_assoc()){
             $userID = $data['UserID'];
-        else
-            $errorRm = "Error, user ID not found.";
-
-        //search for itemID
-        $query =  "SELECT userID FROM collection WHERE itemID = '$idPicture'";
-        $result = $db->query($query);
-        $data = $result->fetch_assoc();
-        $userIDCollection = $data['userID'];
-
-        if($userIDCollection == $userID){
-            $query = "DELETE FROM collection WHERE itemID = '$idPicture'";
+            
+            //search for itemID
+            $query =  "SELECT userID FROM collection WHERE itemID = '$idPicture'";
             $result = $db->query($query);
+            if($data = $result->fetch_assoc()){
+                $userIDCollection = $data['userID'];
+                if($userIDCollection == $userID){
+                    $query = "DELETE FROM collection WHERE itemID = '$idPicture'";
+                    $result = $db->query($query);
+                }else{
+                    $errorRm = "Sorry, it's not your picture, you can't remove it.";
+                }
+            }else{
+                $errorRm = "Error, picture not found.";
+            }
         }
+        else
+            $errorRm = "Error, user ID not found.";  
     }
     else{
         if (empty($_POST['titlePic']) || empty($_POST['descriptionPic']) || empty($_POST['imageURL'])){

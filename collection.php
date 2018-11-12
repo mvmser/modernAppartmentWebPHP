@@ -39,32 +39,29 @@
             if(!empty($_POST['searchItem'])){
                 $searchItem = mysqli_real_escape_string($db,$_POST['searchItem']);
 
-                if($searchItem == "Outdoor"){
-
+                //search for itemID 
+                $query =  "SELECT * FROM collection WHERE itemID = '$searchItem'";
+                $result = $db->query($query);
+                if($data = $result->fetch_assoc()){
+                    $itemID = $data['itemID'];
+                    $itemURL = $data['URL'];
+                    $itemDescription = $data['description'];
+    
+                    echo "<div class='picture col-8 mx-auto mt-5'>
+                            <div class='image'>
+                                <img id='$itemID' src='$itemURL' alt='$itemID'>
+                            </div>
+                            <div class='infos'>
+                                <p>$itemDescription</p>
+                                <p>ID: $itemID</p> 
+                            </div>
+                        </div>";
                 }else{
-                    //search for itemID 
-                    $query =  "SELECT * FROM collection WHERE itemID = '$searchItem'";
-                    $result = $db->query($query);
-                    if($data = $result->fetch_assoc()){
-                        $itemID = $data['itemID'];
-                        $itemURL = $data['URL'];
-                        $itemDescription = $data['description'];
-        
-                        echo "<div class='picture col-8 mx-auto mt-5'>
-                                <div class='image'>
-                                    <img id=' $itemID ' src='  $itemURL ' alt=' $itemID '>
-                                </div>
-                                <div class='infos'>
-                                    <p>$itemDescription</p>
-                                    <p>$itemID</p> 
-                                </div>
+                    echo "<div class='alert alert-danger mt-3 col-4 mx-auto pb-0' role='alert'>
+                                <p>Item not found.</p> 
                             </div>";
-                    }else{
-                        echo "<div class='alert alert-danger mt-3 col-4 mx-auto pb-0' role='alert'>
-                                    <p>Item not found.</p> 
-                                </div>";
-                    }
                 }
+                
 
                 
             }
@@ -104,7 +101,7 @@
                                 </div>
                                 <div class='infos'>
                                     <p>$itemDescription</p>
-                                    <p>$itemID</p> 
+                                    <p>ID: $itemID</p> 
                                 </div>
                             </div>
                         </div>"; 
@@ -115,7 +112,44 @@
         <!-- END Box Picture--> 
     </div>
 
-    <div class="boxCollection gray">
+    <div class="container-fluid boxCollection gray">
+        <div class="boxTitle">
+            <h1>Indoor</h1> 
+        </div>
+        <!-- Box Picture -->
+        <div class="boxPicture row mx-auto">
+            <?php
+                require_once "includes/dbConfig.php";
+
+                //search for prefix
+                $query =  "SELECT * FROM collection WHERE prefix = 'IN'";
+                $result = $db->query($query);
+
+                while ($data = $result->fetch_assoc()) {
+                    $itemID = $data['itemID'];
+                    $itemURL = $data['URL'];
+                    $itemDescription = $data['description'];
+
+                    
+                    echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
+                            <div class='picture'>
+                                <div class='image'>
+                                    <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                </div>
+                                <div class='infos'>
+                                    <p>$itemDescription</p>
+                                    <p>ID: $itemID</p> 
+                                </div>
+                            </div>
+                        </div>"; 
+                     
+                }
+                ?>
+        </div>  
+        <!-- END Box Picture--> 
+    </div>
+
+    <div class="boxCollection white">
         <div class="boxTitle">
             <h1>Living room</h1> 
         </div>
@@ -141,7 +175,7 @@
                                 </div>
                                 <div class='infos'>
                                     <p>$itemDescription</p>
-                                    <p>$itemID</p> 
+                                    <p>ID: $itemID</p> 
                                 </div>
                             </div>
                         </div>"; 
@@ -152,7 +186,7 @@
         <!-- END Box Picture--> 
     </div>
 
-    <div class="boxCollection white">
+    <div class="boxCollection gray">
         <div class="boxTitle">
             <h1>Bed room</h1> 
         </div>
@@ -178,7 +212,7 @@
                                 </div>
                                 <div class='infos'>
                                     <p>$itemDescription</p>
-                                    <p>$itemID</p> 
+                                    <p>ID: $itemID</p> 
                                 </div>
                             </div>
                         </div>"; 
@@ -189,7 +223,7 @@
         <!-- END Box Picture--> 
     </div>
 
-    <div class="boxCollection gray">
+    <div class="boxCollection white">
         <div class="boxTitle">
             <h1>Kitchen</h1> 
         </div>
@@ -215,7 +249,7 @@
                                 </div>
                                 <div class='infos'>
                                     <p>$itemDescription</p>
-                                    <p>$itemID</p> 
+                                    <p>ID: $itemID</p> 
                                 </div>
                             </div>
                         </div>"; 
@@ -226,7 +260,7 @@
         <!-- END Box Picture-->   
     </div>   
 
-        <div class="boxCollection white">
+        <div class="boxCollection gray">
             <div class="boxTitle">
                 <h1>Bathroom</h1> 
             </div>
@@ -251,7 +285,7 @@
                                 </div>
                                 <div class='infos'>
                                     <p>$itemDescription</p>
-                                    <p>$itemID</p> 
+                                    <p>ID: $itemID</p> 
                                 </div>
                             </div>
                         </div>"; 
