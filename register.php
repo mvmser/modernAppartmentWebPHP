@@ -1,21 +1,24 @@
 <?php
+    //needed files
     require_once "includes/dbConfig.php";
     require_once "includes/session.php";
 
+    //user already logged can't access to this page
     if(isset($_SESSION["username"]) ){
         header("location: index.php");
         exit;
     }
 
-    $error = "";
+    $error = $success = "";
 
     if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['confirm_password'])){
 
-        $username = mysqli_real_escape_string($db, stripslashes($_POST['username'])); 
+        $username = mysqli_real_escape_string($db, $_POST['username']); 
         
         if($_POST['password'] == $_POST['confirm_password']){
             $password = mysqli_real_escape_string($db,password_hash($_POST['password'], PASSWORD_DEFAULT));
 
+            //Check if user exist or not
             $query = "SELECT * FROM user WHERE LoginName = ? LIMIT 1";
             $stmt = $db->prepare($query);
             $stmt->bind_param("s", $username);
@@ -26,15 +29,19 @@
             if($stmt->num_rows == 0){
                 //we dont need anymore the result
                 $stmt->free_result();
-                //we can close 
                 $stmt->close();
-                $query = "INSERT into `user` (LoginName, LoginPassword) VALUES (?, ?)";
+
+                $query = "INSERT into user (LoginName, LoginPassword) VALUES (?, ?)";
                 if($stmt = $db->prepare($query)){
                     $stmt->bind_param("ss", $username, $password);
-                    $stmt->execute();                   
-                    $stmt->close();
+                    if($stmt->execute()){
+                        $stmt->close();
+                        $success = true;
+                    }else{
+                        $error = 'Error to create you account (2).';
+                    }                
                 }else{
-                    $error = 'Error to create you account.';
+                    $error = 'Error to create you account (1).';
                 }                       
             }
             else{
@@ -48,7 +55,6 @@
         $error = "Please enter all fields.";
     }
     $db->close();
-
 ?>
  
 <!DOCTYPE html>
@@ -76,16 +82,13 @@
             </div>
             <h2 class="active"> Sign Up </h2>
             <?php
-                if (isset($_REQUEST['username']))
-                {
-                    if(empty($error))
-                    {
+                if (isset($_REQUEST['username'])){
+                    if($success){
                         echo "<div style='margin: 0 10% 0 10%; padding-bottom:0;' class='alert alert-success' role='alert'>
                                 <p>You are registered!</br> Click here to <a href='login.php'>Login</a></p>
                             </div>";
                     }
-                    else
-                    {
+                    else{
                         echo "<div style='margin: 0 10% 0 10%; padding-bottom:0;' class='alert alert-danger' role='alert'>
                                 <p>" . $error . " </p> 
                             </div>";
