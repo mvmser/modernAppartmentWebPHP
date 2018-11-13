@@ -21,16 +21,20 @@
                 $username = $_SESSION['username'];
 
                 //who is username -> userID?
-                $query =  "(SELECT UserID FROM user WHERE LoginName = '$username')";
-                $result = $db->query($query);
-                $data = $result->fetch_assoc();
-                $userID = $data['UserID'];
+                $query =  "SELECT UserID FROM user WHERE LoginName = ?";
+                $stmt = $db->prepare($query);
+                $stmt->bind_param("s", $username);
+                $stmt->execute();
+                $stmt->bind_result($userID);
+                $stmt->fetch();
+                $stmt->close();
 
                 $query = "INSERT into `collection` (prefix, description, URL, userID) VALUES (?, ?, ?, ?)";
                 if($stmt = $db->prepare($query)){
                     $stmt->bind_param("sssi", $prefix, $imageDescription, $imageURL, $userID);
                     $stmt->execute();                
                     $stmt->close();
+                    $sucess = true;
                 }else{
                     $errorAdd = "Error to upload your image.";
                 }    
@@ -46,12 +50,18 @@
         $idPicture = mysqli_real_escape_string($db, $_POST['idPic']);
         $username = $_SESSION['username'];
 
-        //search for userID
-        $query =  "SELECT UserID FROM user WHERE LoginName = '$username'";
-        $result = $db->query($query);
-        if($data = $result->fetch_assoc()){
-            $userID = $data['UserID'];
-            
+        //userID?
+        $query =  "SELECT UserID FROM user WHERE LoginName = ?";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->bind_result($userID);
+        if($stmt->fetch()){
+            $stmt->close();
+        }else{
+            $errorRm = "Error, user ID not found.";
+        }  
+                   
             //search for itemID
             $query =  "SELECT userID FROM collection WHERE itemID = '$idPicture'";
             $result = $db->query($query);
@@ -60,15 +70,15 @@
                 if($userIDCollection == $userID){
                     $query = "DELETE FROM collection WHERE itemID = '$idPicture'";
                     $result = $db->query($query);
+                    $sucess = true;
                 }else{
                     $errorRm = "Sorry, it's not your picture, you can't remove it.";
                 }
             }else{
                 $errorRm = "Error, picture not found.";
             }
-        }
-        else
-            $errorRm = "Error, user ID not found.";  
+        
+        
     }
     else{
         if (empty($_POST['titlePic']) || empty($_POST['descriptionPic']) || empty($_POST['imageURL'])){
@@ -107,12 +117,11 @@
             <div class="container mx-auto">
                 <?php
                     if (isset($_POST['titlePic'])){
-                        if(empty($errorAdd)){
+                        if($sucess){
                             echo "<div style='padding-bottom:0;' class='alert alert-success' role='alert'>
                                     <p>Picture uploaded!</p>
                                 </div>";
-                        }
-                        else{
+                        }elseif(!empty($errorAdd)){
                             echo "<div style='padding-bottom:0;' class='alert alert-danger' role='alert'>
                                     <p>" . $errorAdd . " </p> 
                                 </div>";
@@ -159,12 +168,11 @@
             <div class="container">
                 <?php
                     if (isset($_POST['idPic'])){
-                        if(empty($errorRm)){
+                        if($sucess){
                             echo "<div style='padding-bottom:0;' class='alert alert-success' role='alert'>
                                     <p>Picture removed!</p>
                                 </div>";
-                        }
-                        else{
+                        }elseif(!empty($errorRm)){
                             echo "<div style='padding-bottom:0;' class='alert alert-danger' role='alert'>
                                     <p>" . $errorRm . " </p> 
                                 </div>";

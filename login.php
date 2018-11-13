@@ -30,7 +30,9 @@
             $stmt->fetch();
 
 			$isPasswordCorrect = password_verify($password, $LoginPassword);
-			
+            
+            $stmt->close();
+
 			if($isPasswordCorrect){
                 $_SESSION['username'] = $username;
                 header("Refresh: 1; URL=index.php");
