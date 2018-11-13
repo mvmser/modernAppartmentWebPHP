@@ -1,31 +1,40 @@
 <?php
     require_once "includes/dbConfig.php";
     require_once "includes/session.php";
-    $error = "";
+
+    $error = $sucess = "";
     
+    //user already logged can't access to this page
     if(isset($_SESSION["username"]) ){
         header("location : index.php");
         exit;
     }
 
-	if (!empty($_POST['username'])  && !empty($_POST['password'])){
+	if (!empty($_POST['username'])  && !empty($_POST['password']) ){
 
-		$username = mysqli_real_escape_string($db, stripslashes($_POST['username'])); 
-		$query = "SELECT * FROM user WHERE LoginName = '$username'";
-		$result = mysqli_query($db, $query);
-		$user = mysqli_fetch_assoc($result);
-
-		if($user){
+		$username = mysqli_real_escape_string($db, $_POST['username']); 
+        $query = "SELECT * FROM user WHERE LoginName = ?";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->store_result();
+        
+		if($stmt->num_rows == 1){
 			$password = mysqli_real_escape_string($db,$_POST['password']);
 
-			$query = "SELECT * FROM user where LoginName = '$username'";
-			$result = $db->query($query);
-			$data = $result->fetch_assoc();
-			$isPasswordCorrect = password_verify($password, $data['LoginPassword']);
+            $query = "SELECT LoginPassword FROM user where LoginName = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $stmt->bind_result($LoginPassword);
+            $stmt->fetch();
+
+			$isPasswordCorrect = password_verify($password, $LoginPassword);
 			
 			if($isPasswordCorrect){
                 $_SESSION['username'] = $username;
-                header("Refresh: 2;URL=index.php");
+                header("Refresh: 1; URL=index.php");
+                $sucess = true;
 			}else{
 				$error = "Incorrect username/password.";
 			}
@@ -39,7 +48,7 @@
         if(empty($_POST['password']))
             $error = $error . "Please enter your password. </br>";
         elseif(empty($_POST['username']) && empty($_POST['password']))
-            $error = $error . "Please enter your username and your password. ";
+            $error = "Please enter your username and your password. ";
     }
 ?>
 <!DOCTYPE html>
@@ -69,13 +78,13 @@
 			<?php
 				if (isset($_POST['username']))
                 {
-                    if(empty($error))
+                    if($sucess)
                     {
                         echo "<div style='margin: 0 10% 0 10%; padding-bottom:0;' class='alert alert-success' role='alert'>
                                 <p>You are logged!</p>
                             </div>";
                     }
-                    else
+                    elseif(!empty($error))
                     {
                         echo "<div style='margin: 0 10% 0 10%; padding-bottom:0;' class='alert alert-danger' role='alert'>
                                 <p>" . $error . " </p> 
