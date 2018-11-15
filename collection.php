@@ -64,7 +64,7 @@
         </div>
         <div class="col-lg-6 mx-auto">
             <form action="" method="POST" class="input-group">
-                <input name="searchItem" type="text" class="form-control" placeholder="What are you looking for ?">
+                <input name="searchItem" type="text" class="form-control" placeholder="Please enter a word or an ID">
                 <button class="btn btn-default btn-outline-primary" type="submit">Search</button>
             </form>
         </div>
@@ -73,10 +73,10 @@
             if(!empty($_POST['searchItem'])){
                 $searchItem = mysqli_real_escape_string($db,$_POST['searchItem']);
 
-                $query =  "SELECT * FROM collection WHERE description LIKE ?";
+                $query =  "SELECT * FROM collection WHERE description LIKE ? OR itemID = ?";
                 $stmt = $db->prepare($query);
                 $item = '%' . $searchItem . '%';
-                $stmt->bind_param("s", $item);
+                $stmt->bind_param("si", $item, $searchItem);
                 $stmt->execute();
                 $stmt->store_result();
                 if($stmt->num_rows > 0){
