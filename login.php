@@ -36,6 +36,7 @@
 			if($isPasswordCorrect){
                 $_SESSION['username'] = $username;
                 header("Refresh: 1; URL=index.php");
+                
                 $sucess = true;
 			}else{
 				$error = "Incorrect username/password.";
