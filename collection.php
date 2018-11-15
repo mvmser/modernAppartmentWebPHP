@@ -1,4 +1,6 @@
 <?php
+    require_once "includes/dbConfig.php";
+
 //search for itemID 
     /*
     $query =  "SELECT * FROM collection WHERE itemID = '$searchItem'";
@@ -52,7 +54,7 @@
     
 <!-- BANNER -->
 <section class="bannerCollection d-flex">
-    <div class="container text-center mb-5 mx-auto mt-5">
+    <div class="container-fluid text-center mb-5 mx-auto mt-5">
         <div class="col">
             <h1>COLLECTION</h1>
             <div class="separator_title"></div>
@@ -68,8 +70,6 @@
         </div>
 
         <?php
-            require_once "includes/dbConfig.php";
-
             if(!empty($_POST['searchItem'])){
                 $searchItem = mysqli_real_escape_string($db,$_POST['searchItem']);
 
@@ -87,7 +87,7 @@
                         echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
                             <div class='picture'>
                                 <div class='image'>
-                                    <img id='$_itemID' src=' $_URL' alt='$_itemID'>
+                                    <img id='$_itemID' src='$_URL' alt='$_itemID'>
                                 </div>
                                 <div class='infos'>
                                     <p>$_description</p>
@@ -103,7 +103,6 @@
                                 <p>Item not found.</p> 
                             </div>";
                 }  
-                $db->close();  
             }           
             
         ?>
@@ -122,18 +121,14 @@
         </div>
         <!-- Box Picture -->
         <div class="boxPicture row mx-auto">
-            <?php
-                require_once "includes/dbConfig.php";
-
-                //search for prefix
-                $query =  "SELECT * FROM collection WHERE prefix = 'OD'";
-                $result = $db->query($query);
-
+        <?php
+            $query =  "SELECT * FROM collection WHERE prefix = 'OD'";
+            if($result = $db->query($query)){
                 while ($data = $result->fetch_assoc()) {
                     $itemID = $data['itemID'];
                     $itemURL = $data['URL'];
                     $itemDescription = $data['description'];
-      
+        
                     echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
                             <div class='picture'>
                                 <div class='image'>
@@ -144,11 +139,11 @@
                                     <p>ID: $itemID</p> 
                                 </div>
                             </div>
-                        </div>"; 
-                     
+                        </div>";      
                 }
-                ?>
-        </div>  
+            }
+            ?>
+            </div>  
         <!-- END Box Picture--> 
     </div>
 
