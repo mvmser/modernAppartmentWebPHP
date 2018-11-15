@@ -8,6 +8,16 @@
         header("location : index.php");
         exit;
     }
+
+    //who is username -> userID?
+    $username = $_SESSION['username'];
+    $query =  "SELECT UserID FROM user WHERE LoginName = ?";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $stmt->bind_result($userID);
+    $stmt->fetch();
+    $stmt->close();
  
     //ADD
     if (!empty($_POST['titlePic']) && !empty($_POST['descriptionPic']) && !empty($_POST['imageURL'])){
@@ -17,24 +27,18 @@
             if(!empty($_POST['image-url'])){
                 $prefix = mysqli_real_escape_string($db, $_POST['titlePic']);
                 $imageDescription = mysqli_real_escape_string($db, $_POST['descriptionPic']);
-                $imageURL = mysqli_real_escape_string($db, $_POST['imageURL']);
-                $username = $_SESSION['username'];
-
-                //who is username -> userID?
-                $query =  "SELECT UserID FROM user WHERE LoginName = ?";
-                $stmt = $db->prepare($query);
-                $stmt->bind_param("s", $username);
-                $stmt->execute();
-                $stmt->bind_result($userID);
-                $stmt->fetch();
-                $stmt->close();
+                $imageURL = mysqli_real_escape_string($db, $_POST['imageURL']);               
 
                 $query = "INSERT into `collection` (prefix, description, URL, userID) VALUES (?, ?, ?, ?)";
                 if($stmt = $db->prepare($query)){
-                    $stmt->bind_param("sssi", $prefix, $imageDescription, $imageURL, $userID);
-                    $stmt->execute();                
-                    $stmt->close();
-                    $sucess = true;
+                    if(isset($userID)){
+                        $stmt->bind_param("sssi", $prefix, $imageDescription, $imageURL, $userID);
+                        $stmt->execute();                
+                        $stmt->close();
+                        $sucess = true;
+                    }else{
+                        $errorAdd = "User ID not found.";
+                    }
                 }else{
                     $errorAdd = "Error to upload your image.";
                 }    
@@ -48,28 +52,25 @@
     //REMOVE
     elseif(!empty($_POST['idPic'])){
         $idPicture = mysqli_real_escape_string($db, $_POST['idPic']);
-        $username = $_SESSION['username'];
 
-        //userID?
-        $query =  "SELECT UserID FROM user WHERE LoginName = ?";
-        $stmt = $db->prepare($query);
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $stmt->bind_result($userID);
-        if($stmt->fetch()){
-            $stmt->close();
-        }else{
-            $errorRm = "Error, user ID not found.";
-        }  
-                   
+        if(isset($userID)){            
             //search for itemID
-            $query =  "SELECT userID FROM collection WHERE itemID = '$idPicture'";
-            $result = $db->query($query);
-            if($data = $result->fetch_assoc()){
-                $userIDCollection = $data['userID'];
+            $query =  "SELECT userID FROM collection WHERE itemID = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $idPicture);
+            $stmt->execute();
+            $stmt->bind_result($userIDCollection);
+            $stmt->fetch();
+            $stmt->close();
+
+            if(isset($userIDCollection)){
                 if($userIDCollection == $userID){
-                    $query = "DELETE FROM collection WHERE itemID = '$idPicture'";
-                    $result = $db->query($query);
+                    $query = "DELETE FROM collection WHERE itemID = ? AND userID = ?";
+                    $stmt = $db->prepare($query);
+                    $stmt->bind_param("ii", $idPicture, $userID);
+                    $stmt->execute();
+                    $stmt->close();
+
                     $sucess = true;
                 }else{
                     $errorRm = "Sorry, it's not your picture, you can't remove it.";
@@ -77,8 +78,9 @@
             }else{
                 $errorRm = "Error, picture not found.";
             }
-        
-        
+        }else{
+            $errorRm = "Error, user ID not found.";
+        }    
     }
     else{
         if (empty($_POST['titlePic']) || empty($_POST['descriptionPic']) || empty($_POST['imageURL'])){
