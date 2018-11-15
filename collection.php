@@ -95,8 +95,8 @@
                                 </div>
                             </div>
                         </div>";
-                        echo "</div>";
                     }
+                    echo "</div>";
                     $stmt->close();
                 }else{
                     echo "<div class='alert alert-danger mt-3 col-4 mx-auto pb-0' role='alert'>
