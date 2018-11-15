@@ -55,25 +55,24 @@
 
         if(isset($userID)){            
             //search for itemID
-            $query =  "SELECT userID FROM collection WHERE itemID = ?";
+            $query =  "SELECT * FROM collection WHERE itemID = ?";
             $stmt = $db->prepare($query);
-            $stmt->bind_param("s", $idPicture);
+            $stmt->bind_param("i", $idPicture);
             $stmt->execute();
-            $stmt->bind_result($userIDCollection);
-            $stmt->fetch();
-            $stmt->close();
+            $stmt->store_result();
 
-            if(isset($userIDCollection)){
-                if($userIDCollection == $userID){
-                    $query = "DELETE FROM collection WHERE itemID = ? AND userID = ?";
-                    $stmt = $db->prepare($query);
-                    $stmt->bind_param("ii", $idPicture, $userID);
-                    $stmt->execute();
+            if($stmt->num_rows == 1){
+                $stmt->close();
+
+                $query = "DELETE FROM collection WHERE (itemID = ? AND userID = ?)";
+                $stmt = $db->prepare($query);
+                $stmt->bind_param("ii", $idPicture, $userID);
+                $stmt->execute();
+                if($stmt->affected_rows == 1){
                     $stmt->close();
-
                     $sucess = true;
                 }else{
-                    $errorRm = "Sorry, it's not your picture, you can't remove it.";
+                    $errorRm = "Error, it's not your picture.";
                 }
             }else{
                 $errorRm = "Error, picture not found.";
