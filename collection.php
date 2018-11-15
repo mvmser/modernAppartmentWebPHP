@@ -1,3 +1,37 @@
+<?php
+//search for itemID 
+    /*
+    $query =  "SELECT * FROM collection WHERE itemID = '$searchItem'";
+    $result = $db->query($query);
+    if($data = $result->fetch_assoc()){
+        $itemID = $data['itemID'];
+        $itemURL = $data['URL'];
+        $itemDescription = $data['description'];
+
+        echo "<div class='picture col-8 mx-auto mt-5'>
+                <div class='image'>
+                    <img id='$itemID' src='$itemURL' alt='$itemID'>
+                </div>
+                <div class='infos'>
+                    <p>$itemDescription</p>
+                    <p>ID: $itemID</p> 
+                </div>
+            </div>";
+        */
+
+
+         /*
+                        echo "<div class='picture col-8 mx-auto mt-5'>
+                                <div class='image'>
+                                    <img id='$_itemID' src='$_URL' alt='$_itemID'>
+                                </div>
+                                <div class='infos'>
+                                    <p>$_description</p>
+                                    <p>ID: $_itemID</p> 
+                                </div>
+                            </div>";*/
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,32 +73,39 @@
             if(!empty($_POST['searchItem'])){
                 $searchItem = mysqli_real_escape_string($db,$_POST['searchItem']);
 
-                //search for itemID 
-                $query =  "SELECT * FROM collection WHERE itemID = '$searchItem'";
-                $result = $db->query($query);
-                if($data = $result->fetch_assoc()){
-                    $itemID = $data['itemID'];
-                    $itemURL = $data['URL'];
-                    $itemDescription = $data['description'];
-    
-                    echo "<div class='picture col-8 mx-auto mt-5'>
-                            <div class='image'>
-                                <img id='$itemID' src='$itemURL' alt='$itemID'>
-                            </div>
-                            <div class='infos'>
-                                <p>$itemDescription</p>
-                                <p>ID: $itemID</p> 
+                $query =  "SELECT * FROM collection WHERE description LIKE ?";
+                $stmt = $db->prepare($query);
+                $item = '%' . $searchItem . '%';
+                $stmt->bind_param("s", $item);
+                $stmt->execute();
+                $stmt->store_result();
+                if($stmt->num_rows > 0){
+                    $stmt->bind_result($_itemID, $_prefix, $_description, $_URL, $_userID);
+                    echo "<div class='boxPicture row mx-auto'>";
+
+                    while ($stmt->fetch()) {
+                        echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
+                            <div class='picture'>
+                                <div class='image'>
+                                    <img id='$_itemID' src=' $_URL' alt='$_itemID'>
+                                </div>
+                                <div class='infos'>
+                                    <p>$_description</p>
+                                    <p>ID: $_itemID</p> 
+                                </div>
                             </div>
                         </div>";
+                        echo "</div>";
+                    }
+                    $stmt->close();
                 }else{
                     echo "<div class='alert alert-danger mt-3 col-4 mx-auto pb-0' role='alert'>
                                 <p>Item not found.</p> 
                             </div>";
-                }
-                
-
-                
-            }
+                }  
+                $db->close();  
+            }           
+            
         ?>
         
     </div>
@@ -92,8 +133,7 @@
                     $itemID = $data['itemID'];
                     $itemURL = $data['URL'];
                     $itemDescription = $data['description'];
-
-                    
+      
                     echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
                             <div class='picture'>
                                 <div class='image'>
