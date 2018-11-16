@@ -397,10 +397,6 @@ h1.title{
     opacity: .6;
     transform: scale(1.05);
 }
-.picture:active img{
-    opacity: 1;
-    transform: scale(0.9);
-}
 .picture > .infos{
     display: none;
     position: absolute;

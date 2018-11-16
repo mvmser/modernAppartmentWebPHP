@@ -1,37 +1,5 @@
 <?php
     require_once "includes/dbConfig.php";
-
-//search for itemID 
-    /*
-    $query =  "SELECT * FROM collection WHERE itemID = '$searchItem'";
-    $result = $db->query($query);
-    if($data = $result->fetch_assoc()){
-        $itemID = $data['itemID'];
-        $itemURL = $data['URL'];
-        $itemDescription = $data['description'];
-
-        echo "<div class='picture col-8 mx-auto mt-5'>
-                <div class='image'>
-                    <img id='$itemID' src='$itemURL' alt='$itemID'>
-                </div>
-                <div class='infos'>
-                    <p>$itemDescription</p>
-                    <p>ID: $itemID</p> 
-                </div>
-            </div>";
-        */
-
-
-         /*
-                        echo "<div class='picture col-8 mx-auto mt-5'>
-                                <div class='image'>
-                                    <img id='$_itemID' src='$_URL' alt='$_itemID'>
-                                </div>
-                                <div class='infos'>
-                                    <p>$_description</p>
-                                    <p>ID: $_itemID</p> 
-                                </div>
-                            </div>";*/
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +12,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/lightbox.css" />
 </head>
 
 <body>
@@ -87,7 +56,9 @@
                         echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
                             <div class='picture'>
                                 <div class='image'>
+                                <a href='$_URL' data-lightbox='search' data-title='$_description | ID: $_itemID'>
                                     <img id='$_itemID' src='$_URL' alt='$_itemID'>
+                                </a>
                                 </div>
                                 <div class='infos'>
                                     <p>$_description</p>
@@ -132,7 +103,7 @@
                     echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
                             <div class='picture'>
                                 <div class='image'>
-                                    <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                <a href='$itemURL' data-lightbox='outdoor' data-title='$itemDescription | ID: $itemID'><img id='$itemID' src=' $itemURL' alt='$itemID'></a>
                                 </div>
                                 <div class='infos'>
                                     <p>$itemDescription</p>
@@ -336,6 +307,11 @@
 <!-- END COLLECTION  -->
 
 <?php  include("includes/footer.php") ?>
+<!-- JS -->
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/lightbox.js"></script>
+<!-- JS -->
 
 </body>
 </html>
