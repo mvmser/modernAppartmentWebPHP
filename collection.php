@@ -99,11 +99,14 @@
                     $itemID = $data['itemID'];
                     $itemURL = $data['URL'];
                     $itemDescription = $data['description'];
+                    $itemPrefix = $data['prefix'];
         
                     echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
                             <div class='picture'>
                                 <div class='image'>
-                                <a href='$itemURL' data-lightbox='outdoor' data-title='$itemDescription | ID: $itemID'><img id='$itemID' src=' $itemURL' alt='$itemID'></a>
+                                    <a href='$itemURL' data-lightbox='$itemPrefix' data-title='$itemDescription | ID: $itemID'>
+                                        <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                    </a>
                                 </div>
                                 <div class='infos'>
                                     <p>$itemDescription</p>
@@ -135,12 +138,14 @@
                     $itemID = $data['itemID'];
                     $itemURL = $data['URL'];
                     $itemDescription = $data['description'];
-
+                    $itemPrefix = $data['prefix'];
                     
                     echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
                             <div class='picture'>
                                 <div class='image'>
-                                    <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                    <a href='$itemURL' data-lightbox='$itemPrefix' data-title='$itemDescription | ID: $itemID'>
+                                        <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                    </a>
                                 </div>
                                 <div class='infos'>
                                     <p>$itemDescription</p>
@@ -172,12 +177,15 @@
                     $itemID = $data['itemID'];
                     $itemURL = $data['URL'];
                     $itemDescription = $data['description'];
+                    $itemPrefix = $data['prefix'];
 
                     
                     echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
                             <div class='picture'>
                                 <div class='image'>
-                                    <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                    <a href='$itemURL' data-lightbox='$itemPrefix' data-title='$itemDescription | ID: $itemID'>
+                                        <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                    </a>
                                 </div>
                                 <div class='infos'>
                                     <p>$itemDescription</p>
@@ -209,12 +217,14 @@
                     $itemID = $data['itemID'];
                     $itemURL = $data['URL'];
                     $itemDescription = $data['description'];
-
+                    $itemPrefix = $data['prefix'];
                     
                     echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
                             <div class='picture'>
                                 <div class='image'>
-                                    <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                    <a href='$itemURL' data-lightbox='$itemPrefix' data-title='$itemDescription | ID: $itemID'>
+                                        <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                    </a>
                                 </div>
                                 <div class='infos'>
                                     <p>$itemDescription</p>
@@ -246,12 +256,14 @@
                     $itemID = $data['itemID'];
                     $itemURL = $data['URL'];
                     $itemDescription = $data['description'];
-
+                    $itemPrefix = $data['prefix'];
                     
                     echo "<div class='col d-inline-block my-3 mx-auto mw-75'>
                             <div class='picture'>
                                 <div class='image'>
-                                    <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                    <a href='$itemURL' data-lightbox='$itemPrefix' data-title='$itemDescription | ID: $itemID'>
+                                        <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                    </a>
                                 </div>
                                 <div class='infos'>
                                     <p>$itemDescription</p>
@@ -283,11 +295,14 @@
                     $itemID = $data['itemID'];
                     $itemURL = $data['URL'];
                     $itemDescription = $data['description'];
+                    $itemPrefix = $data['prefix'];
 
                     echo "<div class='col-md d-inline-block my-3 mx-auto mw-75'>
                             <div class='picture'>
                                 <div class='image'>
-                                    <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                    <a href='$itemURL' data-lightbox='$itemPrefix' data-title='$itemDescription | ID: $itemID'>
+                                        <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                    </a>
                                 </div>
                                 <div class='infos'>
                                     <p>$itemDescription</p>
