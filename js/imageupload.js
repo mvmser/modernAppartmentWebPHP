@@ -4,8 +4,7 @@
     var options = {};
 
     var methods = {
-        init: init,
-        reset: reset
+        init: init
     };
 
     $.fn.imageupload = function(methodOrOptions) {
@@ -34,27 +33,15 @@
 
         var $imageupload = this;
         var $urlTab = $imageupload.find('.url-tab');
-        var $urlTabButton = $imageupload.find('.panel-heading .btn:eq(1)');
-        var $submitUrlButton = $urlTab.find('.btn:eq(0)');
-
-        // Do a complete reset.
+        var $submitUrlButton = $urlTab.find('.btn:eq(1)');
         
-        $urlTabButton.off();
+        
         $submitUrlButton.off();
-
-        //NEED
 
         $submitUrlButton.on('click', function() {
             $(this).blur();
             submitImageUrl($urlTab);
-        });
-
-     
-    }
-
-    function reset() {
-        var $imageupload = this;
-        init.call($imageupload, options);
+        });     
     }
 
     function getAlertHtml(message) {

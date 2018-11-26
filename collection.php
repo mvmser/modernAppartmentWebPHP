@@ -105,7 +105,7 @@
                             <div class='picture'>
                                 <div class='image'>
                                     <a href='$itemURL' data-lightbox='$itemPrefix' data-title='$itemDescription | ID: $itemID'>
-                                        <img id='$itemID' src=' $itemURL' alt='$itemID'>
+                                        <img id='$itemID' src='$itemURL' alt='$itemID'>
                                     </a>
                                 </div>
                                 <div class='infos'>

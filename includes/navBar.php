@@ -1,7 +1,7 @@
 <?php
     require_once "includes/session.php";  
 ?>
-<!-- Navigation -->        
+<!-- Navigation     -->
 <div class="navBar">
     <a href="index.php" ><img class="logo" src="img/icons/logo.png" alt="Logo"></a>
     <nav class="navigation">
@@ -20,4 +20,4 @@
         </ul>
     </nav>
 </div>
-<!-- End navigation -->
+<!--  End navigation -->

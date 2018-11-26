@@ -34,8 +34,9 @@
                     if(isset($userID)){
                         $stmt->bind_param("sssi", $prefix, $imageDescription, $imageURL, $userID);
                         $stmt->execute();                
-                        $stmt->close();
+                        $lastItemID = $stmt->insert_id;
                         $sucess = true;
+                        $stmt->close();
                     }else{
                         $errorAdd = "User ID not found.";
                     }
@@ -120,7 +121,7 @@
                     if (isset($_POST['titlePic'])){
                         if($sucess){
                             echo "<div style='padding-bottom:0;' class='alert alert-success' role='alert'>
-                                    <p>Picture uploaded!</p>
+                                    <p>Picture $lastItemID uploaded!</p>
                                 </div>";
                         }elseif(!empty($errorAdd)){
                             echo "<div style='padding-bottom:0;' class='alert alert-danger' role='alert'>
@@ -133,13 +134,12 @@
                     <select class="form-control mb-3" name="titlePic">
                         <option value="select">Select title..</option>
                         <option value="OD">Outdoor</option>
-                        <option value="IN">Indoor</option>
                         <option value="LR">Living Room</option>
                         <option value="BD">Bedroom</option>
                         <option value="KT">Kitchen</option>
                         <option value="BA">Bathroom</option>
                     </select>
-                    <input type="text" class="form-control" placeholder="Description" name="descriptionPic">
+                    <input type="text" class="form-control" placeholder="Description" name="descriptionPic" maxlength="100">
                 
                     <div class="upload panel panel-default">
                         <div class="panel-heading clearfix">
@@ -148,9 +148,10 @@
                     
                         <div class="url-tab panel-body">
                             <div class="input-group">
-                                <input type="text" class="form-control hasclear" placeholder="Image URL" name="imageURL">
+                                <input type="text" class="form-control hasclear" placeholder="Image URL" name="imageURL" maxlength="200">
                                 <div class="input-group-btn">
                                     <button type="button" class="btn btn-outline-success">Preview</button>
+                                    <button type="button" class="btn btn-outline-success">Add</button>
                                     <input type="hidden" name="image-url">
                                 </div>
                             </div>
