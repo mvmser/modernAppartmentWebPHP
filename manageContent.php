@@ -23,11 +23,12 @@
     if (!empty($_POST['titlePic']) && !empty($_POST['descriptionPic']) && !empty($_POST['imageURL'])){
         if($_POST['titlePic'] != "select"){
 
+            $prefix = mysqli_real_escape_string($db, $_POST['titlePic']);
+            $imageDescription = mysqli_real_escape_string($db, $_POST['descriptionPic']);
+            $imageURL = mysqli_real_escape_string($db, $_POST['imageURL']);  
+
             //if the image is an image, we will have a $_POST image-url
-            if(!empty($_POST['image-url'])){
-                $prefix = mysqli_real_escape_string($db, $_POST['titlePic']);
-                $imageDescription = mysqli_real_escape_string($db, $_POST['descriptionPic']);
-                $imageURL = mysqli_real_escape_string($db, $_POST['imageURL']);               
+            if(!empty($_POST['image-url'])){           
 
                 $query = "INSERT into `collection` (prefix, description, URL, userID) VALUES (?, ?, ?, ?)";
                 if($stmt = $db->prepare($query)){
@@ -139,7 +140,7 @@
                         <option value="KT">Kitchen</option>
                         <option value="BA">Bathroom</option>
                     </select>
-                    <input type="text" class="form-control" placeholder="Description" name="descriptionPic" maxlength="100">
+                    <input type="text" class="form-control" placeholder="Description" name="descriptionPic" maxlength="100" value="<?php if(isset($imageDescription)) { echo $imageDescription; }?>">
                 
                     <div class="upload panel panel-default">
                         <div class="panel-heading clearfix">
@@ -148,10 +149,9 @@
                     
                         <div class="url-tab panel-body">
                             <div class="input-group">
-                                <input type="text" class="form-control hasclear" placeholder="Image URL" name="imageURL" maxlength="200">
+                                <input type="text" class="form-control hasclear" placeholder="Image URL" name="imageURL" maxlength="200" value="<?php if(isset($imageURL)) { echo $imageURL; }?>">
                                 <div class="input-group-btn">
                                     <button type="button" class="btn btn-outline-success">Preview</button>
-                                    <button type="button" class="btn btn-outline-success">Add</button>
                                     <input type="hidden" name="image-url">
                                 </div>
                             </div>

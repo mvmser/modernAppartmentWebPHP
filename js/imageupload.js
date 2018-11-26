@@ -33,7 +33,8 @@
 
         var $imageupload = this;
         var $urlTab = $imageupload.find('.url-tab');
-        var $submitUrlButton = $urlTab.find('.btn:eq(1)');
+        var $submitUrlButton = $urlTab.find('.btn:eq(0)');
+
         
         
         $submitUrlButton.off();
@@ -95,6 +96,7 @@
     function submitImageUrl($urlTab) {
         var $urlInput = $urlTab.find('input[type="text"]');
         var $submitUrlButton = $urlTab.find('.btn:eq(0)');
+
 
         $urlTab.find('.alert').remove();
         $urlTab.find('img').remove();
