@@ -2,6 +2,7 @@
     require_once "includes/dbConfig.php";
     require_once "includes/session.php";
 
+
     $errorAdd = $errorRm = $sucess = "";
     
     if(!isset($_SESSION["username"]) ){

@@ -1,6 +1,8 @@
 <?php
+    //We need session for Login or Logout
     require_once "includes/session.php";  
 ?>
+
 <!-- Navigation     -->
 <div class="navBar">
     <a href="index.php" ><img class="logo" src="img/icons/logo.png" alt="Logo"></a>

@@ -1,5 +1,4 @@
 <?php
-    //needed files
     require_once "includes/dbConfig.php";
     require_once "includes/session.php";
 
