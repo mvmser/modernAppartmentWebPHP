@@ -12,8 +12,9 @@
 
 <body>
 
-<?php     
-    include("includes/headerHome.php"); 
+<?php
+    //include headerHome (contain : navBar and header)     
+    require "includes/headerHome.php"; 
 ?>
 
 <!-- PRESENTATION 1 -->
@@ -128,7 +129,7 @@
 </section>
 <!-- END PRESENTATION 3 -->
     
-<?php  include("includes/footer.php") ?>
+<?php  include "includes/footer.php"; ?>
 
 <!-- JS -->
     <script src="js/jquery-3.3.1.js"></script>

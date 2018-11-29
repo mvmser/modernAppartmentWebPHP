@@ -18,7 +18,7 @@
 <body>
 
 <?php  
-    include("includes/navBar.php") 
+    require "includes/navBar.php";
 ?>
     
 <!-- BANNER -->
@@ -321,7 +321,8 @@
 </section>
 <!-- END COLLECTION  -->
 
-<?php  include("includes/footer.php") ?>
+<?php  include "includes/footer.php"; ?>
+
 <!-- JS -->
     <script src="js/jquery-3.3.1.js"></script>
     <script src="js/bootstrap.js"></script>

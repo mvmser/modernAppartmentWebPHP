@@ -2,6 +2,7 @@
     require_once "includes/dbConfig.php";
     require_once "includes/session.php";
 
+    //init variables
     $error = $sucess = "";
     
     //user already logged can't access to this page
@@ -54,6 +55,7 @@
             $error = "Please enter your password. </br>";
     }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,7 +98,7 @@
 				}
 			?>
 
-            <form action="" method="post">
+            <form method="post" action="">
                 <input type="text" class="form-control" name="username" placeholder="Username" >
                 <input type="password" class="form-control" name="password" placeholder="Password" >
                 <button class="btn btn-primary btn-block login-button" type="submit">Login</button>
@@ -109,7 +111,7 @@
 </section>
 <!-- END LOGIN -->
 
-<?php  include("includes/footer.php") ?>
+<?php  include "includes/footer.php" ?>
     
 </body>
 </html>

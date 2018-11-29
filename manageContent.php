@@ -2,9 +2,10 @@
     require_once "includes/dbConfig.php";
     require_once "includes/session.php";
 
-
+    //init variables
     $errorAdd = $errorRm = $sucess = "";
     
+    //check if the user is connected, else he can't access
     if(!isset($_SESSION["username"]) ){
         header("location : index.php");
         exit;
@@ -24,6 +25,7 @@
     if (!empty($_POST['titlePic']) && !empty($_POST['descriptionPic']) && !empty($_POST['imageURL'])){
         if($_POST['titlePic'] != "select"){
 
+            //we have the variables, we can secure and store it
             $prefix = mysqli_real_escape_string($db, $_POST['titlePic']);
             $imageDescription = mysqli_real_escape_string($db, $_POST['descriptionPic']);
             $imageURL = mysqli_real_escape_string($db, $_POST['imageURL']);  
@@ -31,7 +33,7 @@
             //if the image is an image, we will have a $_POST image-url
             if(!empty($_POST['image-url'])){           
 
-                $query = "INSERT into `collection` (prefix, description, URL, userID) VALUES (?, ?, ?, ?)";
+                $query = "INSERT INTO `collection` (prefix, description, URL, userID) VALUES (?, ?, ?, ?)";
                 if($stmt = $db->prepare($query)){
                     if(isset($userID)){
                         $stmt->bind_param("sssi", $prefix, $imageDescription, $imageURL, $userID);
@@ -64,13 +66,16 @@
             $stmt->execute();
             $stmt->store_result();
 
+            //if in db there is no row, no itemID exist
             if($stmt->num_rows == 1){
                 $stmt->close();
 
+                //we delete the item BUTwe check if the user ID correspond with the user connected
                 $query = "DELETE FROM collection WHERE (itemID = ? AND userID = ?)";
                 $stmt = $db->prepare($query);
                 $stmt->bind_param("ii", $idPicture, $userID);
                 $stmt->execute();
+                //check if deletion was successful
                 if($stmt->affected_rows == 1){
                     $stmt->close();
                     $sucess = true;
@@ -132,7 +137,8 @@
                         }
                     }
                 ?>
-                <form action="" method="POST">
+
+                <form method="POST" action="">
                     <select class="form-control mb-3" name="titlePic">
                         <option value="select">Select title..</option>
                         <option value="OD">Outdoor</option>
@@ -141,7 +147,8 @@
                         <option value="KT">Kitchen</option>
                         <option value="BA">Bathroom</option>
                     </select>
-                    <input type="text" class="form-control" placeholder="Description" name="descriptionPic" maxlength="100" value="<?php if(isset($imageDescription)) { echo $imageDescription; }?>">
+                    <input type="text" class="form-control" placeholder="Description" name="descriptionPic" maxlength="100" 
+                        value="<?php if(isset($imageDescription)) { echo $imageDescription; }?>">
                 
                     <div class="upload panel panel-default">
                         <div class="panel-heading clearfix">
@@ -194,7 +201,7 @@
 <!-- END MANAGE PAGE -->
     
     
-<?php  include("includes/footer.php") ?>
+<?php  include "includes/footer.php"; ?>
 
 <!-- JS -->
 
