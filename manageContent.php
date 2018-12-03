@@ -187,7 +187,7 @@
                     if (isset($_POST['idPic'])){
                         if($sucess){
                             echo "<div style='padding-bottom:0;' class='alert alert-success' role='alert'>
-                                    <p>Picture removed!</p>
+                                    <p>Picture $idPicture removed!</p>
                                 </div>";
                         }elseif(!empty($errorRm)){
                             echo "<div style='padding-bottom:0;' class='alert alert-danger' role='alert'>
