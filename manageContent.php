@@ -11,7 +11,7 @@
         exit;
     }
 
-    //check the userID
+    //check the userID (security)
     $userID = $_SESSION['userID'];
     $query =  "SELECT UserID FROM user WHERE UserID = ?";
     $stmt = $db->prepare($query);
@@ -21,6 +21,7 @@
     //if the userID doesnt exist
     if($stmt->num_rows == 0){
         $userID = null;
+        echo "Please logout and login again";
     }
     $stmt->close();
  
