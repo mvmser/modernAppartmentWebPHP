@@ -11,18 +11,22 @@
         exit;
     }
 
-    //who is username -> userID?
-    $username = $_SESSION['username'];
-    $query =  "SELECT UserID FROM user WHERE LoginName = ?";
+    //check the userID
+    $userID = $_SESSION['userID'];
+    $query =  "SELECT UserID FROM user WHERE UserID = ?";
     $stmt = $db->prepare($query);
-    $stmt->bind_param("s", $username);
+    $stmt->bind_param("s", $userID);
     $stmt->execute();
-    $stmt->bind_result($userID);
-    $stmt->fetch();
+    $stmt->store_result();
+    //if the userID doesnt exist
+    if($stmt->num_rows == 0){
+        $userID = null;
+    }
     $stmt->close();
  
     //ADD
     if (!empty($_POST['titlePic']) && !empty($_POST['descriptionPic']) && !empty($_POST['imageURL'])){
+        //if the user select something
         if($_POST['titlePic'] != "select"){
 
             //we have the variables, we can secure and store it
@@ -97,7 +101,10 @@
             $errorRm = "Please enter an ID.";
         }
     }
+
+    //free ressources
     $db->close();
+    $stmt = null;
 ?>
 <!DOCTYPE html>
 <html lang="en">

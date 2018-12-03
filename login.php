@@ -20,24 +20,25 @@
         $stmt->execute();
         $stmt->store_result();
         
+        //If there is one result -> username exist
 		if($stmt->num_rows == 1){
 			$password = mysqli_real_escape_string($db,$_POST['password']);
 
-            $query = "SELECT LoginPassword FROM user where LoginName = ?";
+            $query = "SELECT LoginPassword, UserID FROM user where LoginName = ?";
             $stmt = $db->prepare($query);
             $stmt->bind_param("s", $username);
             $stmt->execute();
-            $stmt->bind_result($LoginPassword);
+            $stmt->bind_result($LoginPassword, $userID);
             $stmt->fetch();
-
-			$isPasswordCorrect = password_verify($password, $LoginPassword);
-            
             $stmt->close();
 
+            //Compare the two passwords
+			$isPasswordCorrect = password_verify($password, $LoginPassword);
+            
 			if($isPasswordCorrect){
                 $_SESSION['username'] = $username;
+                $_SESSION['userID'] = $userID;
                 header("Refresh: 1; URL=index.php");
-                
                 $sucess = true;
 			}else{
 				$error = "Incorrect username/password.";
@@ -54,6 +55,10 @@
         elseif(empty($_POST['password']))
             $error = "Please enter your password. </br>";
     }
+
+    //free ressources
+    $db->close();
+    $stmt = null;
 ?>
 
 <!DOCTYPE html>
