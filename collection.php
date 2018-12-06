@@ -57,7 +57,7 @@
                             <div class='picture'>
                                 <div class='image'>
                                 <a href='$_URL' data-lightbox='search' data-title='$_description | ID: $_itemID'>
-                                    <img id='$_itemID' src='$_URL' alt='$_itemID'>
+                                    <img src='$_URL' alt='$_itemID'>
                                 </a>
                                 </div>
                                 <div class='infos'>
@@ -278,11 +278,11 @@
         <!-- END Box Picture-->   
     </div>   
 
-        <div class="boxCollection gray">
-            <div class="boxTitle">
-                <h1>Bathroom</h1> 
-            </div>
-            <!-- Box Picture -->
+    <div class="boxCollection gray">
+        <div class="boxTitle">
+            <h1>Bathroom</h1> 
+        </div>
+        <!-- Box Picture -->
         <div class="boxPicture row mx-auto">
             <?php
                 require_once "includes/dbConfig.php";
@@ -310,14 +310,12 @@
                                 </div>
                             </div>
                         </div>"; 
-                     
+                    
                 }
                 ?>
         </div>  
         <!-- END Box Picture--> 
         </div>
-    </div>
-
 </section>
 <!-- END COLLECTION  -->
 
