@@ -146,7 +146,7 @@
                     }
                 ?>
 
-                <form method="POST" action="">
+                <form method="POST" action="manageContent.php">
                     <select class="form-control mb-3" name="titlePic">
                         <option value="select">Select title..</option>
                         <option value="OD">Outdoor</option>
@@ -197,7 +197,7 @@
                         }
                     }
                 ?>
-                <form action="" method="POST">
+                <form action="manageContent.php" method="POST">
                     <input type="text" class="form-control mb-3" placeholder="ID picture" name="idPic">
                     <button type="submit" class="btn btn-outline-danger mb-2">Remove</button>
                 </form>

@@ -32,7 +32,7 @@
             <h3>Looking for a superior quality of life</h3>
         </div>
         <div class="col-lg-6 mx-auto">
-            <form action="" method="POST" class="input-group">
+            <form action="collection.php" method="POST" class="input-group">
                 <input name="searchItem" type="text" class="form-control" placeholder="Please enter a word or an ID">
                 <button class="btn btn-default btn-outline-primary" type="submit">Search</button>
             </form>

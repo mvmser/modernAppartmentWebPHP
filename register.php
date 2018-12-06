@@ -95,7 +95,7 @@
                 }
             ?>
 
-            <form method="post">
+            <form method="post" action="register.php">
                 <input type="text" class="form-control" name="username" placeholder="Username" >
                 <input type="password" class="form-control" name="password" placeholder="Password" >
                 <input type="password" class="form-control" name="confirm_password" placeholder="Re-enter password" >

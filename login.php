@@ -103,7 +103,7 @@
 				}
 			?>
 
-            <form method="post" action="">
+            <form method="post" action="login.php">
                 <input type="text" class="form-control" name="username" placeholder="Username" >
                 <input type="password" class="form-control" name="password" placeholder="Password" >
                 <button class="btn btn-primary btn-block login-button" type="submit">Login</button>
